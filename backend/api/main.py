@@ -1,12 +1,11 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from api.routers import health, questions
-from api.db import engine
-from api.models import Base
 import logging
 
-from sqlalchemy import text
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
+from api.db import engine
+from api.models import Base
+from api.routers import health, questions
 
 logging.basicConfig(level=logging.INFO)
 app = FastAPI(title="AWS SAA-03 API")
@@ -22,9 +21,11 @@ app.add_middleware(
 app.include_router(health.router)
 app.include_router(questions.router)
 
+
 @app.get("/")
 def read_root():
     return {"message": "AWS SAA-03 Backend API"}
+
 
 @app.on_event("startup")
 def create_tables():

@@ -2,9 +2,9 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import List, Optional, Literal
+from typing import Literal
 
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 
 # ---------- Choices ----------
@@ -24,14 +24,14 @@ class ChoiceOut(BaseModel):
 # ---------- Questions ----------
 class QuestionCreate(BaseModel):
     stem: str = Field(..., min_length=1)
-    explanation: Optional[str] = None
+    explanation: str | None = None
     difficulty: int = Field(default=1, ge=1, le=5)
-    domain: Optional[str] = None
+    domain: str | None = None
     question_type: Literal["single", "multi"] = "single"
     active: bool = True
 
-    choices: List[ChoiceCreate] = Field(..., min_length=2)
-    answers: List[str] = Field(..., min_length=1)  # labels, e.g. ["A"] or ["A","C"]
+    choices: list[ChoiceCreate] = Field(..., min_length=2)
+    answers: list[str] = Field(..., min_length=1)  # labels, e.g. ["A"] or ["A","C"]
 
 
 class QuestionOut(BaseModel):
@@ -39,13 +39,13 @@ class QuestionOut(BaseModel):
 
     id: int
     stem: str
-    explanation: Optional[str]
+    explanation: str | None
     difficulty: int
-    domain: Optional[str]
+    domain: str | None
     question_type: str
     active: bool
     created_at: datetime
 
-    choices: List[ChoiceOut]
+    choices: list[ChoiceOut]
     # return correct answer labels for now (later you can hide this)
-    answer_labels: List[str] = []
+    answer_labels: list[str] = []

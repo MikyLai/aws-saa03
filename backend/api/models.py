@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import List, Optional
 
 from sqlalchemy import (
     Boolean,
@@ -14,21 +13,25 @@ from sqlalchemy import (
 )
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
+
+
 class Base(DeclarativeBase):
     """SQLAlchemy 2.0 declarative base."""
+
     pass
+
 
 class Question(Base):
     __tablename__ = "questions"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     stem: Mapped[str] = mapped_column(Text, nullable=False)
-    explanation: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    explanation: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     difficulty: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
 
     # Example: "Design High-Performing Architectures"
-    domain: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    domain: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     # "single" | "multi"
     question_type: Mapped[str] = mapped_column(Text, nullable=False, default="single")
@@ -42,19 +45,19 @@ class Question(Base):
     )
 
     # Relationships
-    choices: Mapped[List[Choice]] = relationship(
+    choices: Mapped[list[Choice]] = relationship(
         "Choice",
         back_populates="question",
         cascade="all, delete-orphan",
     )
 
-    answers: Mapped[List[QuestionAnswer]] = relationship(
+    answers: Mapped[list[QuestionAnswer]] = relationship(
         "QuestionAnswer",
         back_populates="question",
         cascade="all, delete-orphan",
     )
 
-    attempts: Mapped[List[Attempt]] = relationship(
+    attempts: Mapped[list[Attempt]] = relationship(
         "Attempt",
         back_populates="question",
         cascade="all, delete-orphan",
@@ -84,14 +87,12 @@ class Choice(Base):
     )
 
     # One question should not have duplicate labels like two "A"
-    __table_args__ = (
-        UniqueConstraint("question_id", "label", name="uq_choices_question_label"),
-    )
+    __table_args__ = (UniqueConstraint("question_id", "label", name="uq_choices_question_label"),)
 
     # Relationships
     question: Mapped[Question] = relationship("Question", back_populates="choices")
 
-    answered_by: Mapped[List[QuestionAnswer]] = relationship(
+    answered_by: Mapped[list[QuestionAnswer]] = relationship(
         "QuestionAnswer",
         back_populates="choice",
         cascade="all, delete-orphan",
@@ -103,6 +104,7 @@ class QuestionAnswer(Base):
     Join table for correct answers.
     Supports multi-select by allowing multiple rows per question.
     """
+
     __tablename__ = "question_answers"
 
     question_id: Mapped[int] = mapped_column(

@@ -2,11 +2,11 @@
 from __future__ import annotations
 
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session, selectinload
 from sqlalchemy import select
+from sqlalchemy.orm import Session, selectinload
 
 from api.db import get_db
-from api.models import Question, Choice, QuestionAnswer
+from api.models import Choice, Question, QuestionAnswer
 from api.schemas import QuestionCreate, QuestionOut
 
 router = APIRouter(prefix="/questions", tags=["questions"])
@@ -16,7 +16,10 @@ router = APIRouter(prefix="/questions", tags=["questions"])
 def list_questions(db: Session = Depends(get_db)):
     stmt = (
         select(Question)
-        .options(selectinload(Question.choices), selectinload(Question.answers).selectinload(QuestionAnswer.choice))
+        .options(
+            selectinload(Question.choices),
+            selectinload(Question.answers).selectinload(QuestionAnswer.choice),
+        )
         .order_by(Question.id.asc())
     )
     questions = db.execute(stmt).scalars().all()
@@ -35,7 +38,10 @@ def get_question(question_id: int, db: Session = Depends(get_db)):
     stmt = (
         select(Question)
         .where(Question.id == question_id)
-        .options(selectinload(Question.choices), selectinload(Question.answers).selectinload(QuestionAnswer.choice))
+        .options(
+            selectinload(Question.choices),
+            selectinload(Question.answers).selectinload(QuestionAnswer.choice),
+        )
     )
     q = db.execute(stmt).scalars().first()
     if not q:
@@ -79,7 +85,9 @@ def create_question(payload: QuestionCreate, db: Session = Depends(get_db)):
 
     # if single, enforce 1 answer
     if payload.question_type == "single" and len(wanted) != 1:
-        raise HTTPException(status_code=400, detail="Single-choice question must have exactly 1 answer")
+        raise HTTPException(
+            status_code=400, detail="Single-choice question must have exactly 1 answer"
+        )
 
     # 4) create answer mapping rows
     for label in set(wanted):
@@ -91,7 +99,10 @@ def create_question(payload: QuestionCreate, db: Session = Depends(get_db)):
     stmt = (
         select(Question)
         .where(Question.id == q.id)
-        .options(selectinload(Question.choices), selectinload(Question.answers).selectinload(QuestionAnswer.choice))
+        .options(
+            selectinload(Question.choices),
+            selectinload(Question.answers).selectinload(QuestionAnswer.choice),
+        )
     )
     q2 = db.execute(stmt).scalars().first()
     item = QuestionOut.model_validate(q2)
