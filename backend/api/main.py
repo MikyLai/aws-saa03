@@ -3,9 +3,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from api.routers import health, questions
 from api.db import engine
 from api.models import Base
+import logging
 
 from sqlalchemy import text
 
+
+logging.basicConfig(level=logging.INFO)
 app = FastAPI(title="AWS SAA-03 API")
 
 app.add_middleware(
