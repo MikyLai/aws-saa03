@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from api.routers import health, questions
 from api.db import engine
+from api.models import Base
+
 from sqlalchemy import text
 
 app = FastAPI(title="AWS SAA-03 API")
@@ -22,7 +24,5 @@ def read_root():
     return {"message": "AWS SAA-03 Backend API"}
 
 @app.on_event("startup")
-def test_connection():
-    with engine.connect() as conn:
-        conn.execute(text("SELECT 1"))
-        print("DB connected successfully!")
+def create_tables():
+    Base.metadata.create_all(bind=engine)

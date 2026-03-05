@@ -1,4 +1,7 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
+from api.db import get_db
+from api.models import Question
 
 router = APIRouter(prefix="/questions", tags=["questions"])
 
