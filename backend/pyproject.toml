@@ -39,7 +39,7 @@ select = [
     "C4",  # flake8-comprehensions
     "UP",  # pyupgrade
 ]
-ignore = []
+ignore = ["B008", "E402"]  # B008: Allow Depends() in FastAPI routes, E402: Allow load_dotenv() before imports
 
 [tool.mypy]
 python_version = "3.11"
