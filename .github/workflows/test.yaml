@@ -35,6 +35,8 @@ jobs:
           - 5432:5432
 
     steps:
+      - uses: actions/checkout@v6
+
       - name: setup service environment variables
         shell: bash
         run: |
