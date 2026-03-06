@@ -1,11 +1,13 @@
-import logging
+from dotenv import load_dotenv
 
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+load_dotenv()
 
 from api.db import engine
 from api.models import Base
 from api.routers import health, questions
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+import logging
 
 logging.basicConfig(level=logging.INFO)
 app = FastAPI(title="AWS SAA-03 API")

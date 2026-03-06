@@ -1,0 +1,160 @@
+name: Python Test
+
+on:
+  workflow_dispatch:
+    
+
+concurrency:
+  group: test-python-${{ github.repository }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: read-all
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    services:
+      postgres:
+        image: 'postgres:17-alpine'
+        env:
+          POSTGRES_PASSWORD: password
+          POSTGRES_USER: test
+          POSTGRES_DB: test
+        options: >-
+          --health-cmd "pg_isready"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: setup service environment variables
+        shell: bash
+        run: |
+          set -eu
+          {
+            # Localstack configuration
+            echo "AWS_ACCESS_KEY_ID=test"
+            echo "AWS_SECRET_ACCESS_KEY=test"
+
+            # Postgres configuration
+            echo "DATABASE_URL=postgresql+psycopg://test:password@localhost:5432/test"
+            echo "DB_USER=test"
+            echo "DB_PASSWORD=password"
+            echo "DB_HOST=localhost"
+            echo "DB_PORT=5432"
+            echo "DB_NAME=test"
+          } >> "${GITHUB_ENV}"
+
+      - uses: nisa-emu-it/cicd-github-action-pipeline-setup@v0.23.0
+        with:
+          JF_ACCESS_TOKEN: ${{ secrets.JF_READ_ONLY_ACCESS_TOKEN }}
+          pipeline-type: test
+
+      - uses: nisa-emu-it/cicd-github-action-pipeline-cspell@v0.4.0
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version-file: .python-version
+
+      - name: install linux packages
+        if: ${{ success() && inputs.linux-packages != '' }}
+        uses: awalsh128/cache-apt-pkgs-action@v1.6.0
+        with:
+          packages: ${{ inputs.linux-packages }}
+
+      - name: install uv
+        uses: astral-sh/setup-uv@v2
+
+      - name: lint dockerfile
+        if: ${{ success() && hashFiles('**/Dockerfile') != '' }}
+        uses: hadolint/hadolint-action@v3.3.0
+        with:
+          dockerfile: Dockerfile
+          recursive: true
+          trusted-registries: nisa.jfrog.io
+          failure-threshold: info
+          ignore: DL4006,DL3008,DL3018,DL3007,DL3045
+
+      - name: install dependencies
+        working-directory: backend
+        shell: bash
+        run: |
+          set -eu
+          uv sync --all-extras
+
+      - name: typecheck
+        working-directory: backend
+        shell: bash
+        run: |
+          set -eu
+          if uv run which mypy &>/dev/null; then
+            uv run mypy --non-interactive --install-types
+            uv run mypy --fast-module-lookup --ignore-missing-imports
+          else
+            echo "::warning::mypy not found"
+          fi
+
+      - name: lint
+        working-directory: backend
+        shell: bash
+        run: |
+          set -eu
+          if uv run which ruff &>/dev/null; then
+            uv run ruff check --output-format=github
+          else
+            echo "::warning::ruff not found"
+          fi
+
+      - name: format check
+        working-directory: backend
+        shell: bash
+        run: |
+          set -eu
+          if uv run which ruff &>/dev/null; then
+            uv run ruff format --check
+          else
+            echo "::warning::ruff not found"
+          fi
+
+      - uses: hashicorp/setup-terraform@v3
+        if: ${{ success() && inputs.localstack-version != '' && hashFiles('localstack/**') != '' }}
+        with:
+          terraform_wrapper: false
+
+      - name: install localstack resources
+        if: ${{ success() && inputs.localstack-version != '' && hashFiles('localstack/**') != '' }}
+        working-directory: localstack
+        shell: bash
+        run: |
+          terraform init
+          terraform apply -auto-approve
+
+      - name: test database migrations
+        if: ${{ success() && hashFiles('db/**') != '' && hashFiles('db/migrations/**') != '' }}
+        uses: nisa-emu-it/cicd-github-action-test-db-migrations@v1.5.0
+        with:
+          database-url: postgresql+psycopg://test:password@localhost:5432/test
+          github-token: ${{ github.token }}
+          postgres-version: ${{ inputs.postgres-version }}
+          working-directory: db
+
+      - name: test
+        working-directory: backend
+        shell: bash
+        run: |
+          set -eu
+          if uv run which pytest &>/dev/null; then
+            uv run pytest
+          else
+            echo "::warning::pytest not found"
+          fi
+        env:
+          JFROG_ACCESS_TOKEN: ${{ secrets.JF_READ_ONLY_ACCESS_TOKEN }}
+          DATABRICKS_CLIENT_ID: ${{ vars.DATABRICKS_CLIENT_ID }}
+          DATABRICKS_HOST: ${{ vars.DATABRICKS_HOST }}
+          DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
