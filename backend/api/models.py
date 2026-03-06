@@ -12,6 +12,7 @@ from sqlalchemy import (
     func,
 )
 from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy.ext.mutable import MutableList
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
@@ -142,8 +143,8 @@ class Attempt(Base):
     )
 
     # store selected choice ids as JSON array, e.g. [12, 13]
-    selected_choice_ids: Mapped[list] = mapped_column(
-        JSONB,
+    selected_choice_ids: Mapped[list[int]] = mapped_column(
+        MutableList.as_mutable(JSONB),
         nullable=False,
         default=list,
     )
