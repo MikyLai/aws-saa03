@@ -27,7 +27,7 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 # Import models so Alembic can detect schema changes for autogenerate
-from api.models import Base 
+from api.models import Base  # noqa: I001
 
 target_metadata = Base.metadata
 
@@ -75,9 +75,7 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
-        context.configure(
-            connection=connection, target_metadata=target_metadata
-        )
+        context.configure(connection=connection, target_metadata=target_metadata)
 
         with context.begin_transaction():
             context.run_migrations()
