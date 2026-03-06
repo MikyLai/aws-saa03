@@ -1,0 +1,125 @@
+name: Python Test
+
+on:
+  pull_request:
+    branches: 
+        - main
+  workflow_dispatch:
+    
+
+concurrency:
+  group: test-python-${{ github.repository }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: read-all
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    services:
+      postgres:
+        image: 'postgres:17-alpine'
+        env:
+          POSTGRES_PASSWORD: password
+          POSTGRES_USER: test
+          POSTGRES_DB: test
+        options: >-
+          --health-cmd "pg_isready"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: setup service environment variables
+        shell: bash
+        run: |
+          set -eu
+          {
+            # Localstack configuration
+            echo "AWS_ACCESS_KEY_ID=test"
+            echo "AWS_SECRET_ACCESS_KEY=test"
+
+            # Postgres configuration
+            echo "DATABASE_URL=postgresql+psycopg://test:password@localhost:5432/test"
+            echo "DB_USER=test"
+            echo "DB_PASSWORD=password"
+            echo "DB_HOST=localhost"
+            echo "DB_PORT=5432"
+            echo "DB_NAME=test"
+          } >> "${GITHUB_ENV}"
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version-file: .python-version
+
+
+      - name: install uv
+        uses: astral-sh/setup-uv@v2
+
+      - name: lint dockerfile
+        if: ${{ success() && hashFiles('**/Dockerfile') != '' }}
+        uses: hadolint/hadolint-action@v3.3.0
+        with:
+          dockerfile: Dockerfile
+          recursive: true
+          trusted-registries: nisa.jfrog.io
+          failure-threshold: info
+          ignore: DL4006,DL3008,DL3018,DL3007,DL3045
+
+      - name: install dependencies
+        working-directory: backend
+        shell: bash
+        run: |
+          set -eu
+          uv sync --all-extras
+
+      - name: typecheck
+        working-directory: backend
+        shell: bash
+        run: |
+          set -eu
+          if uv run which mypy &>/dev/null; then
+            uv run mypy --ignore-missing-imports api
+          else
+            echo "::warning::mypy not found"
+          fi
+
+      - name: lint
+        working-directory: backend
+        shell: bash
+        run: |
+          set -eu
+          if uv run which ruff &>/dev/null; then
+            uv run ruff check --output-format=github
+          else
+            echo "::warning::ruff not found"
+          fi
+
+      - name: format check
+        working-directory: backend
+        shell: bash
+        run: |
+          set -eu
+          if uv run which ruff &>/dev/null; then
+            uv run ruff format --check
+          else
+            echo "::warning::ruff not found"
+          fi
+
+      - name: test
+        working-directory: backend
+        shell: bash
+        run: |
+          set -eu
+          if uv run which pytest &>/dev/null; then
+            uv run pytest
+          else
+            echo "::warning::pytest not found"
+          fi

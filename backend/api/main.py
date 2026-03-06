@@ -1,9 +1,16 @@
+import logging
+
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from api.routers import health, questions
-from api.db import engine
-from sqlalchemy import text
 
+load_dotenv()
+
+from api.db import engine  # noqa: E402
+from api.models import Base  # noqa: E402
+from api.routers import health, questions  # noqa: E402
+
+logging.basicConfig(level=logging.INFO)
 app = FastAPI(title="AWS SAA-03 API")
 
 app.add_middleware(
@@ -17,12 +24,12 @@ app.add_middleware(
 app.include_router(health.router)
 app.include_router(questions.router)
 
+
 @app.get("/")
-def read_root():
+def read_root() -> dict[str, str]:
     return {"message": "AWS SAA-03 Backend API"}
 
+
 @app.on_event("startup")
-def test_connection():
-    with engine.connect() as conn:
-        conn.execute(text("SELECT 1"))
-        print("DB connected successfully!")
+def create_tables() -> None:
+    Base.metadata.create_all(bind=engine)
