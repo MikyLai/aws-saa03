@@ -1,14 +1,14 @@
 import logging
 
 from dotenv import load_dotenv
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
-from api.db import engine
-from api.models import Base
-from api.routers import health, questions
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from api.db import engine  # noqa: E402
+from api.models import Base  # noqa: E402
+from api.routers import health, questions  # noqa: E402
 
 logging.basicConfig(level=logging.INFO)
 app = FastAPI(title="AWS SAA-03 API")
