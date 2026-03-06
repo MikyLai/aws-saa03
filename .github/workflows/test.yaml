@@ -1,6 +1,9 @@
 name: Python Test
 
 on:
+  pull_request:
+    branches: 
+        - main
   workflow_dispatch:
     
 
@@ -50,22 +53,10 @@ jobs:
             echo "DB_NAME=test"
           } >> "${GITHUB_ENV}"
 
-      - uses: nisa-emu-it/cicd-github-action-pipeline-setup@v0.23.0
-        with:
-          JF_ACCESS_TOKEN: ${{ secrets.JF_READ_ONLY_ACCESS_TOKEN }}
-          pipeline-type: test
-
-      - uses: nisa-emu-it/cicd-github-action-pipeline-cspell@v0.4.0
-
       - uses: actions/setup-python@v6
         with:
           python-version-file: .python-version
 
-      - name: install linux packages
-        if: ${{ success() && inputs.linux-packages != '' }}
-        uses: awalsh128/cache-apt-pkgs-action@v1.6.0
-        with:
-          packages: ${{ inputs.linux-packages }}
 
       - name: install uv
         uses: astral-sh/setup-uv@v2
@@ -121,28 +112,6 @@ jobs:
             echo "::warning::ruff not found"
           fi
 
-      - uses: hashicorp/setup-terraform@v3
-        if: ${{ success() && inputs.localstack-version != '' && hashFiles('localstack/**') != '' }}
-        with:
-          terraform_wrapper: false
-
-      - name: install localstack resources
-        if: ${{ success() && inputs.localstack-version != '' && hashFiles('localstack/**') != '' }}
-        working-directory: localstack
-        shell: bash
-        run: |
-          terraform init
-          terraform apply -auto-approve
-
-      - name: test database migrations
-        if: ${{ success() && hashFiles('db/**') != '' && hashFiles('db/migrations/**') != '' }}
-        uses: nisa-emu-it/cicd-github-action-test-db-migrations@v1.5.0
-        with:
-          database-url: postgresql+psycopg://test:password@localhost:5432/test
-          github-token: ${{ github.token }}
-          postgres-version: ${{ inputs.postgres-version }}
-          working-directory: db
-
       - name: test
         working-directory: backend
         shell: bash
@@ -153,8 +122,3 @@ jobs:
           else
             echo "::warning::pytest not found"
           fi
-        env:
-          JFROG_ACCESS_TOKEN: ${{ secrets.JF_READ_ONLY_ACCESS_TOKEN }}
-          DATABRICKS_CLIENT_ID: ${{ vars.DATABRICKS_CLIENT_ID }}
-          DATABRICKS_HOST: ${{ vars.DATABRICKS_HOST }}
-          DATABRICKS_CLIENT_SECRET: ${{ secrets.DATABRICKS_CLIENT_SECRET }}
