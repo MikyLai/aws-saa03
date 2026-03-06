@@ -13,7 +13,7 @@ router = APIRouter(prefix="/questions", tags=["questions"])
 
 
 @router.get("/", response_model=list[QuestionOut])
-def list_questions(db: Session = Depends(get_db)):
+def list_questions(db: Session = Depends(get_db)) -> list[QuestionOut]:
     stmt = (
         select(Question)
         .options(
@@ -34,7 +34,7 @@ def list_questions(db: Session = Depends(get_db)):
 
 
 @router.get("/{question_id}", response_model=QuestionOut)
-def get_question(question_id: int, db: Session = Depends(get_db)):
+def get_question(question_id: int, db: Session = Depends(get_db)) -> QuestionOut:
     stmt = (
         select(Question)
         .where(Question.id == question_id)
@@ -53,7 +53,7 @@ def get_question(question_id: int, db: Session = Depends(get_db)):
 
 
 @router.post("/", response_model=QuestionOut, status_code=status.HTTP_201_CREATED)
-def create_question(payload: QuestionCreate, db: Session = Depends(get_db)):
+def create_question(payload: QuestionCreate, db: Session = Depends(get_db)) -> QuestionOut:
     # 1) create Question
     q = Question(
         stem=payload.stem,
@@ -105,6 +105,8 @@ def create_question(payload: QuestionCreate, db: Session = Depends(get_db)):
         )
     )
     q2 = db.execute(stmt).scalars().first()
+    if not q2:
+        raise HTTPException(status_code=500, detail="Failed to reload question")
     item = QuestionOut.model_validate(q2)
     item.answer_labels = sorted([qa.choice.label for qa in q2.answers])
     return item
