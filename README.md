@@ -43,7 +43,7 @@ pyenv install 3.12.13   # 版本定義在 .python-version
 
 ```bash
 cd backend
-uv sync              # 安裝所有依賴（含 dev）
+uv sync --all-extras   # 安裝所有依賴（含 dev：ruff, mypy, pyright）
 ```
 
 > **注意**：`uv` 會把套件裝在專案的 `.venv` 虛擬環境裡，執行 CLI 工具一律用 `uv run`。
