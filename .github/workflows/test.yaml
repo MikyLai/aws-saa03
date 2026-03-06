@@ -86,8 +86,7 @@ jobs:
         run: |
           set -eu
           if uv run which mypy &>/dev/null; then
-            uv run mypy --non-interactive --install-types api
-            uv run mypy --fast-module-lookup --ignore-missing-imports api
+            uv run mypy --ignore-missing-imports api
           else
             echo "::warning::mypy not found"
           fi
