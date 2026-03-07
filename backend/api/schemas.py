@@ -10,7 +10,8 @@ from pydantic import BaseModel, ConfigDict, Field
 # ---------- Choices ----------
 class ChoiceCreate(BaseModel):
     label: str = Field(..., min_length=1, max_length=10)  # "A","B",...
-    text: str = Field(..., min_length=1)
+    text_en: str = Field(..., min_length=1)
+    text_zh: str | None = None
 
 
 class ChoiceOut(BaseModel):
@@ -18,13 +19,16 @@ class ChoiceOut(BaseModel):
 
     id: int
     label: str
-    text: str
+    text_en: str
+    text_zh: str | None
 
 
 # ---------- Questions ----------
 class QuestionCreate(BaseModel):
-    stem: str = Field(..., min_length=1)
-    explanation: str | None = None
+    stem_en: str = Field(..., min_length=1)
+    stem_zh: str = Field(..., min_length=1)
+    explanation_en: str | None = None
+    explanation_zh: str | None = None
     difficulty: int = Field(default=1, ge=1, le=5)
     domain: str | None = None
     question_type: Literal["single", "multi"] = "single"
@@ -38,8 +42,10 @@ class QuestionOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     id: int
-    stem: str
-    explanation: str | None
+    stem_en: str
+    stem_zh: str
+    explanation_en: str | None
+    explanation_zh: str | None
     difficulty: int
     domain: str | None
     question_type: str

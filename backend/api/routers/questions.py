@@ -69,7 +69,7 @@ def create_question(payload: QuestionCreate, db: Session = Depends(get_db)) -> Q
     # 2) create choices
     label_to_choice: dict[str, Choice] = {}
     for c in payload.choices:
-        choice = Choice(question_id=q.id, label=c.label.strip(), text=c.text)
+        choice = Choice(question_id=q.id, label=c.label.strip(), text_en=c.text_en, text_zh=c.text_zh)
         db.add(choice)
         db.flush()  # get choice.id
         label_to_choice[choice.label] = choice
