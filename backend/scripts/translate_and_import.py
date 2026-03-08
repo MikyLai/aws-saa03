@@ -64,6 +64,7 @@ def import_question(payload: dict) -> requests.Response:
         timeout=60,
     )
 
+
 def normalize_bilingual_payload(original_question: dict, translated_question: dict) -> dict:
     """
     Make sure the translated payload matches the API schema exactly.
@@ -74,9 +75,11 @@ def normalize_bilingual_payload(original_question: dict, translated_question: di
       - difficulty, domain, question_type, active, answers
     """
     normalized = {
-        "stem_en": original_question.get("stem_en") or original_question.get("stem"),
+        "stem_en": (original_question.get("stem_en") or original_question.get("stem")),
         "stem_zh": translated_question.get("stem_zh"),
-        "explanation_en": original_question.get("explanation_en") or original_question.get("explanation"),
+        "explanation_en": (
+            original_question.get("explanation_en") or original_question.get("explanation")
+        ),
         "explanation_zh": translated_question.get("explanation_zh"),
         "difficulty": original_question.get("difficulty", 1),
         "domain": original_question.get("domain"),
@@ -91,10 +94,11 @@ def normalize_bilingual_payload(original_question: dict, translated_question: di
 
     if len(original_choices) != len(translated_choices):
         raise ValueError(
-            f"Choice count mismatch: original={len(original_choices)}, translated={len(translated_choices)}"
+            f"Choice count mismatch: original={len(original_choices)},"
+            f" translated={len(translated_choices)}"
         )
 
-    for orig, trans in zip(original_choices, translated_choices):
+    for orig, trans in zip(original_choices, translated_choices, strict=True):
         normalized["choices"].append(
             {
                 "label": orig["label"],
@@ -104,11 +108,13 @@ def normalize_bilingual_payload(original_question: dict, translated_question: di
         )
 
     return normalized
+
+
 def main() -> None:
     if not INPUT_FILE.exists():
         raise FileNotFoundError(f"Input file not found: {INPUT_FILE}")
 
-    with open(INPUT_FILE, "r", encoding="utf-8") as f:
+    with open(INPUT_FILE, encoding="utf-8") as f:
         questions = json.load(f)
 
     if not isinstance(questions, list):
@@ -129,7 +135,7 @@ def main() -> None:
         bilingual_questions.append(bilingual_payload)
         with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
             json.dump(bilingual_questions, f, ensure_ascii=False, indent=2)
-        
+
         try:
             response = import_question(bilingual_payload)
         except Exception as e:
