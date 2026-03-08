@@ -56,8 +56,10 @@ def get_question(question_id: int, db: Session = Depends(get_db)) -> QuestionOut
 def create_question(payload: QuestionCreate, db: Session = Depends(get_db)) -> QuestionOut:
     # 1) create Question
     q = Question(
-        stem=payload.stem,
-        explanation=payload.explanation,
+        stem_en=payload.stem_en,
+        stem_zh=payload.stem_zh,
+        explanation_en=payload.explanation_en,
+        explanation_zh=payload.explanation_zh,
         difficulty=payload.difficulty,
         domain=payload.domain,
         question_type=payload.question_type,
