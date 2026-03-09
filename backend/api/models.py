@@ -99,6 +99,7 @@ class Choice(Base):
     answered_by: Mapped[list[QuestionAnswer]] = relationship(
         "QuestionAnswer",
         back_populates="choice",
+        cascade="all, delete-orphan",
     )
 
 
