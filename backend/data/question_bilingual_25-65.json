@@ -1,0 +1,683 @@
+[
+  {
+    "stem_en": "A company is migrating a legacy database to AWS. The database requires specific operating system customizations and access to the underlying file system. Which AWS service should the solutions architect recommend?",
+    "stem_zh": "一家公司正在將遺留資料庫遷移到 AWS。該資料庫需要特定的作業系統自定義設定以及對底層檔案系統的存取權。解決方案架構師應該推薦哪種 AWS 服務？",
+    "explanation_en": "When a database requires OS-level access or specific customizations, Amazon EC2 is the correct choice because Amazon RDS is a managed service that does not provide OS access. RDS Custom exists but EC2 is the standard answer for full OS control in this context.",
+    "explanation_zh": "當資料庫需要作業系統級別的存取或特定自定義時，Amazon EC2 是正確選擇，因為 Amazon RDS 是託管服務，不提供 OS 存取權限。雖然有 RDS Custom，但在需要完全 OS 控制的情境下，EC2 是標準答案。",
+    "difficulty": 2,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Amazon RDS for MySQL", "text_zh": "Amazon RDS for MySQL" },
+      { "label": "B", "text_en": "Amazon Aurora", "text_zh": "Amazon Aurora" },
+      { "label": "C", "text_en": "Amazon EC2", "text_zh": "Amazon EC2" },
+      { "label": "D", "text_en": "Amazon DynamoDB", "text_zh": "Amazon DynamoDB" }
+    ],
+    "answers": ["C"]
+  },
+  {
+    "stem_en": "A solutions architect needs to allow an application running on EC2 instances in a private subnet to access an Amazon S3 bucket without traversing the public internet. What is the most secure and cost-effective way to achieve this?",
+    "stem_zh": "解決方案架構師需要允許在私有子網中執行的 EC2 執行個體存取 Amazon S3 儲存桶，且不經過公開網際網路。達成此目標最安全且最具成本效益的方法是什麼？",
+    "explanation_en": "A VPC Gateway Endpoint for S3 provides private connectivity from the VPC to S3 without using an internet gateway or NAT device. It is free of charge and highly secure. Interface endpoints (PrivateLink) are available for S3 but cost money and are typically used for cross-region or on-premises access.",
+    "explanation_zh": "用於 S3 的 VPC 網關端點提供從 VPC 到 S3 的私有連線，無需使用網際網路閘道或 NAT 設備。它是免費的且高度安全。雖然 S3 也有介面端點 (PrivateLink)，但需要付費，通常用於跨區域或本地存取。",
+    "difficulty": 1,
+    "domain": "Design Secure Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Use a NAT Gateway in the public subnet.", "text_zh": "在公有子網中使用 NAT 閘道。" },
+      { "label": "B", "text_en": "Create a VPC Gateway Endpoint for S3.", "text_zh": "為 S3 建立一個 VPC 網關端點。" },
+      { "label": "C", "text_en": "Set up a VPC Peering connection.", "text_zh": "設定 VPC 對等連線。" },
+      { "label": "D", "text_en": "Configure a Site-to-Site VPN.", "text_zh": "配置 Site-to-Site VPN。" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A company wants to store data that is infrequently accessed but must be available immediately when requested. The data should be stored at a lower cost than S3 Standard. Which S3 storage class is most appropriate?",
+    "stem_zh": "一家公司希望儲存不常存取但請求時必須立即供應的數據。數據儲存成本應低於 S3 Standard。哪種 S3 儲存方案最合適？",
+    "explanation_en": "S3 Standard-IA (Infrequent Access) is designed for data that is accessed less frequently but requires rapid access when needed, at a lower storage price than Standard. S3 Glacier provides lower costs but has retrieval times ranging from minutes to hours.",
+    "explanation_zh": "S3 Standard-IA (非頻繁存取) 專為存取頻率較低但在需要時需快速存取的數據而設計，其儲存價格低於 Standard。S3 Glacier 成本更低，但取回時間需要數分鐘到數小時。",
+    "difficulty": 1,
+    "domain": "Design Cost-Optimized Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "S3 Glacier Instant Retrieval", "text_zh": "S3 Glacier Instant Retrieval" },
+      { "label": "B", "text_en": "S3 Standard-IA", "text_zh": "S3 Standard-IA" },
+      { "label": "C", "text_en": "S3 One Zone-IA", "text_zh": "S3 One Zone-IA" },
+      { "label": "D", "text_en": "S3 Intelligent-Tiering", "text_zh": "S3 Intelligent-Tiering" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A solutions architect is designing a system that will process streaming data in real-time. The system must be able to scale up to handle gigabytes of data per second and allow multiple consuming applications to process the same data independently. Which service should be used?",
+    "stem_zh": "解決方案架構師正在設計一個能即時處理串流數據的系統。該系統必須能擴充到每秒處理數 GB 的數據，並允許個取用者應用程式獨立處理相同的數據。應該使用哪種服務？",
+    "explanation_en": "Amazon Kinesis Data Streams is designed for real-time streaming at scale and supports multiple consumers (fan-out). SQS is a queue where typically one consumer processes one message. SNS is pub/sub but not for streaming data processing.",
+    "explanation_zh": "Amazon Kinesis Data Streams 專為大規模即時串流而設計，並支援多個取用者（扇出）。SQS 是隊列，通常一個取用者處理一個訊息。SNS 是發佈/訂閱模式，但不適用於串流數據處理。",
+    "difficulty": 2,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Amazon SQS", "text_zh": "Amazon SQS" },
+      { "label": "B", "text_en": "Amazon Kinesis Data Streams", "text_zh": "Amazon Kinesis Data Streams" },
+      { "label": "C", "text_en": "Amazon SNS", "text_zh": "Amazon SNS" },
+      { "label": "D", "text_en": "AWS Glue", "text_zh": "AWS Glue" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A company wants to identify which IAM users have unused passwords or haven't rotated their access keys in the last 90 days. Which AWS tool provides a comprehensive report of this information?",
+    "stem_zh": "一家公司希望識別哪些 IAM 使用者擁有未使用的密碼，或者在過去 90 天內未更換其存取金鑰。哪種 AWS 工具能提供此類資訊的完整報告？",
+    "explanation_en": "The IAM Credential Report is a downloadable CSV file that lists all users in your account and the status of their various credentials, including passwords and access keys. Trusted Advisor provides some checks but the Credential Report is the specific tool for this detailed audit.",
+    "explanation_zh": "IAM 認證報告 (Credential Report) 是一個可下載的 CSV 檔案，列出了帳戶中的所有使用者及其各種認證狀態，包括密碼和存取金鑰。Trusted Advisor 提供部分檢查，但認證報告是進行此類詳細審計的特定工具。",
+    "difficulty": 2,
+    "domain": "Design Secure Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "AWS Trusted Advisor", "text_zh": "AWS Trusted Advisor" },
+      { "label": "B", "text_en": "IAM Credential Report", "text_zh": "IAM 認證報告" },
+      { "label": "C", "text_en": "AWS Config", "text_zh": "AWS Config" },
+      { "label": "D", "text_en": "Amazon GuardDuty", "text_zh": "Amazon GuardDuty" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "An application requires an object storage solution that allows for data to be locked for a specific duration to prevent deletion for compliance reasons. Which S3 feature should be used?",
+    "stem_zh": "一個應用程式需要物件儲存方案，允許將數據鎖定特定時間，以防止出於合規原因而被刪除。應該使用哪種 S3 功能？",
+    "explanation_en": "S3 Object Lock provides WORM (Write Once, Read Many) protection, allowing you to prevent objects from being deleted or overwritten for a fixed amount of time or indefinitely. Versioning alone doesn't prevent deletion of the latest version. Glacier Vault Lock is for Glacier, but Object Lock is the general S3 feature.",
+    "explanation_zh": "S3 物件鎖定 (Object Lock) 提供 WORM（一次寫入，多次讀取）保護，允許您在固定時間內或無限期地防止物件被刪除或覆寫。僅靠版本控制無法防止最新版本被刪除。Glacier Vault Lock 用於 Glacier，但 Object Lock 是通用的 S3 功能。",
+    "difficulty": 2,
+    "domain": "Design Secure Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "S3 Lifecycle Policies", "text_zh": "S3 生命週期策略" },
+      { "label": "B", "text_en": "S3 Versioning", "text_zh": "S3 版本控制" },
+      { "label": "C", "text_en": "S3 Object Lock", "text_zh": "S3 物件鎖定" },
+      { "label": "D", "text_en": "S3 Replication", "text_zh": "S3 複寫" }
+    ],
+    "answers": ["C"]
+  },
+  {
+    "stem_en": "A company wants to host a web application on AWS using EC2 instances. The application must be highly available and able to handle the failure of an entire Availability Zone. Which configuration should the solutions architect recommend?",
+    "stem_zh": "一家公司希望使用 EC2 執行個體在 AWS 上託管網頁應用程式。該應用程式必須具備高可用性，並能應對整個可用區 (AZ) 的故障。架構師應推薦哪種配置？",
+    "explanation_en": "Deploying instances across multiple Availability Zones (Multi-AZ) and using an Application Load Balancer (ALB) ensures that if one AZ fails, traffic is automatically routed to the healthy instances in another AZ.",
+    "explanation_zh": "在多個可用區 (Multi-AZ) 部署執行個體並使用應用程式負載平衡器 (ALB)，可確保當一個 AZ 發生故障時，流量會自動路由到另一個 AZ 中的健康執行個體。",
+    "difficulty": 1,
+    "domain": "Design Resilient Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Deploy instances in a single AZ with an Auto Scaling group.", "text_zh": "在單個 AZ 中使用自動擴充群組部署執行個體。" },
+      { "label": "B", "text_en": "Deploy instances across multiple AZs behind an Application Load Balancer.", "text_zh": "在多個可用區部署執行個體，並放置於應用程式負載平衡器後端。" },
+      { "label": "C", "text_en": "Use a single large EC2 instance with high-performance EBS volumes.", "text_zh": "使用單個大型 EC2 執行個體並配備高效能 EBS 磁碟卷。" },
+      { "label": "D", "text_en": "Use Amazon CloudFront with an S3 bucket as the origin.", "text_zh": "使用 Amazon CloudFront 並以 S3 儲存桶作為來源。" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A company needs a storage solution for a high-performance database that requires consistent low-latency and 50,000 IOPS. Which Amazon EBS volume type should be used?",
+    "stem_zh": "一家公司需要為高效能資料庫提供儲存方案，該資料庫需要穩定低延遲及 50,000 IOPS。應使用哪種 Amazon EBS 磁碟卷類型？",
+    "explanation_en": "Provisioned IOPS SSD (io2 or io1) is designed for I/O-intensive workloads that require consistent performance and high IOPS. General Purpose SSD (gp3) has limits that may not reach 50,000 IOPS consistently for all sizes.",
+    "explanation_zh": "預佈建 IOPS SSD (io2 或 io1) 專為需要穩定效能和高 IOPS 的 I/O 密集型工作負載而設計。通用型 SSD (gp3) 在某些容量下可能無法穩定達到 50,000 IOPS。",
+    "difficulty": 2,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "General Purpose SSD (gp3)", "text_zh": "通用型 SSD (gp3)" },
+      { "label": "B", "text_en": "Throughput Optimized HDD (st1)", "text_zh": "輸送量優化 HDD (st1)" },
+      { "label": "C", "text_en": "Provisioned IOPS SSD (io2)", "text_zh": "預佈建 IOPS SSD (io2)" },
+      { "label": "D", "text_en": "Cold HDD (sc1)", "text_zh": "冷 HDD (sc1)" }
+    ],
+    "answers": ["C"]
+  },
+  {
+    "stem_en": "A company is concerned about accidental deletion of objects in an S3 bucket. Which combination of features will provide the best protection? (Choose two)",
+    "stem_zh": "一家公司擔心 S3 儲存桶中的物件被意外刪除。哪種功能組合能提供最佳保護？（選擇兩項）",
+    "explanation_en": "Versioning retains a history of objects, allowing recovery from deletion. MFA Delete adds an extra layer of security by requiring multi-factor authentication for permanent deletion of versions.",
+    "explanation_zh": "版本控制 (Versioning) 保留物件的歷史紀錄，允許從刪除中恢復。MFA Delete 透過要求多因素驗證來執行永久刪除，增加了額外的安全層。",
+    "difficulty": 2,
+    "domain": "Design Secure Architectures",
+    "question_type": "multi",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "S3 Versioning", "text_zh": "S3 版本控制" },
+      { "label": "B", "text_en": "S3 Lifecycle policies", "text_zh": "S3 生命週期策略" },
+      { "label": "C", "text_en": "MFA Delete", "text_zh": "MFA 刪除" },
+      { "label": "D", "text_en": "Server-side encryption", "text_zh": "伺服器端加密" },
+      { "label": "E", "text_en": "S3 Transfer Acceleration", "text_zh": "S3 傳輸加速" }
+    ],
+    "answers": ["A", "C"]
+  },
+  {
+    "stem_en": "A company needs to connect its on-premises data center to its VPC. The connection must be encrypted and set up quickly over the internet. Which solution should they choose?",
+    "stem_zh": "一家公司需要將其本地資料中心連線到 VPC。連線必須加密，且能透過網際網路快速設定。他們應選擇哪種方案？",
+    "explanation_en": "AWS Site-to-Site VPN creates an encrypted tunnel over the public internet and can be set up in minutes. Direct Connect takes weeks to provision and is not encrypted by default.",
+    "explanation_zh": "AWS Site-to-Site VPN 透過公開網際網路建立加密隧道，可在數分鐘內完成設定。Direct Connect 需要數週時間部署，且預設不加密。",
+    "difficulty": 1,
+    "domain": "Design Resilient Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "AWS Direct Connect", "text_zh": "AWS Direct Connect" },
+      { "label": "B", "text_en": "AWS Site-to-Site VPN", "text_zh": "AWS Site-to-Site VPN" },
+      { "label": "C", "text_en": "VPC Peering", "text_zh": "VPC 對等連線" },
+      { "label": "D", "text_en": "AWS Transit Gateway", "text_zh": "AWS Transit Gateway" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A company launched Linux servers in a private subnet and a bastion host in a public subnet. An architect needs to allow SSH access from the company network to the application servers through the bastion host. How should the security groups be configured? (Choose two)",
+    "stem_zh": "一家公司在私有子網啟動了 Linux 伺服器，並在公有子網啟動了堡壘機（Bastion Host）。架構師需要允許公司網路透過堡壘機對應用程式伺服器進行 SSH 存取。安全組應如何配置？（選擇兩項）",
+    "explanation_en": "To maintain security, the bastion host should only allow SSH (port 22) from the specific internal IP range of the company. The application servers in the private subnet should then only allow SSH access specifically from the bastion host's private IP address or its security group ID.",
+    "explanation_zh": "為了維持安全性，堡壘機應僅允許來自公司特定內部 IP 範圍的 SSH（連接埠 22）存取。隨後，私有子網中的應用程式伺服器應僅允許來自堡壘機私有 IP 地址或其安全組 ID 的 SSH 存取。",
+    "difficulty": 2,
+    "domain": "Design Secure Architectures",
+    "question_type": "multi",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Update the bastion host security group to allow access from the company's internal IP range.", "text_zh": "更新堡壘機安全組，允許來自公司內部 IP 範圍的存取。" },
+      { "label": "B", "text_en": "Update the application servers security group to allow SSH access from the bastion host private IP.", "text_zh": "更新應用程式伺服器安全組，允許來自堡壘機私有 IP 的 SSH 存取。" },
+      { "label": "C", "text_en": "Update the application servers security group to allow SSH access from the bastion host public IP.", "text_zh": "更新應用程式伺服器安全組，允許來自堡壘機公有 IP 的 SSH 存取。" },
+      { "label": "D", "text_en": "Update the bastion host security group to allow access from 0.0.0.0/0.", "text_zh": "更新堡壘機安全組，允許來自 0.0.0.0/0 的存取。" }
+    ],
+    "answers": ["A", "B"]
+  },
+  {
+    "stem_en": "An application uses an Amazon Aurora MySQL DB cluster. The database is experiencing high CPU utilization due to a large volume of read requests. How can a solutions architect resolve this with minimal effort?",
+    "stem_zh": "一個應用程式使用 Amazon Aurora MySQL 資料庫叢集。由於大量的讀取請求，資料庫的 CPU 利用率非常高。解決方案架構師如何以最小的努力解決這個問題？",
+    "explanation_en": "Aurora Read Replicas are the most effective way to scale read-heavy workloads. By adding replicas and using the Reader Endpoint, the application can distribute read traffic away from the primary instance.",
+    "explanation_zh": "Aurora 讀取複本是擴充讀取密集型工作負載最有效的方法。透過增加複本並使用讀取器端點（Reader Endpoint），應用程式可以將讀取流量從主執行個體分流出去。",
+    "difficulty": 2,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Add Aurora Read Replicas to the cluster and use the reader endpoint.", "text_zh": "向叢集增加 Aurora 讀取複本並使用讀取器端點。" },
+      { "label": "B", "text_en": "Enable Multi-AZ deployment for the primary instance.", "text_zh": "為主執行個體啟用多可用區部署。" },
+      { "label": "C", "text_en": "Migrate the database to Amazon DynamoDB.", "text_zh": "將資料庫遷移到 Amazon DynamoDB。" },
+      { "label": "D", "text_en": "Increase the storage capacity of the Aurora cluster.", "text_zh": "增加 Aurora 叢集的儲存容量。" }
+    ],
+    "answers": ["A"]
+  },
+  {
+    "stem_en": "A company wants to store data in Amazon S3 but must ensure that any object uploaded is automatically replicated to another AWS Region for disaster recovery. What should be configured?",
+    "stem_zh": "一家公司希望將數據儲存在 Amazon S3 中，但必須確保任何上傳的物件都會自動複寫到另一個 AWS 區域以進行災難復原。應該配置什麼？",
+    "explanation_en": "S3 Cross-Region Replication (CRR) automatically replicates every object uploaded to an S3 bucket to a destination bucket in a different AWS Region. Versioning must be enabled on both source and destination buckets.",
+    "explanation_zh": "S3 跨區域複寫 (CRR) 會自動將上傳到 S3 儲存桶的每個物件複寫到不同 AWS 區域的目標儲存桶。來源和目標儲存桶都必須啟用版本控制。",
+    "difficulty": 2,
+    "domain": "Design Resilient Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "S3 Same-Region Replication.", "text_zh": "S3 同區域複寫。" },
+      { "label": "B", "text_en": "S3 Cross-Region Replication.", "text_zh": "S3 跨區域複寫。" },
+      { "label": "C", "text_en": "S3 Lifecycle policies.", "text_zh": "S3 生命週期策略。" },
+      { "label": "D", "text_en": "Amazon CloudFront distribution.", "text_zh": "Amazon CloudFront 分發。" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A company is using an Amazon RDS for MySQL database. The database is experiencing performance issues due to a high volume of complex read queries. Which solution will improve performance with minimal changes to the application?",
+    "stem_zh": "一家公司正在使用 Amazon RDS for MySQL 資料庫。由於大量的複雜讀取查詢，資料庫出現了效能問題。哪種解決方案可以在對應用程式進行最小修改的情況下提高效能？",
+    "explanation_en": "Amazon RDS Read Replicas allow you to offload read traffic from the primary DB instance, which improves performance for read-heavy workloads. This typically requires only updating the connection string in the application for read operations. ElastiCache would require more significant application code changes to manage cache logic.",
+    "explanation_zh": "Amazon RDS 讀取複本允許您從主資料庫執行個體分流讀取流量，從而提高讀取密集型工作負載的效能。這通常只需要在應用程式中更新讀取操作的連線字串。ElastiCache 則需要對應用程式代碼進行較大幅度的修改以管理快取邏輯。",
+    "difficulty": 2,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Create an Amazon RDS Read Replica.", "text_zh": "建立 Amazon RDS 讀取複本。" },
+      { "label": "B", "text_en": "Implement Amazon ElastiCache.", "text_zh": "實作 Amazon ElastiCache。" },
+      { "label": "C", "text_en": "Upgrade the DB instance to a larger instance class.", "text_zh": "將資料庫執行個體升級到更大的執行個體類別。" },
+      { "label": "D", "text_en": "Enable Multi-AZ deployment for the RDS instance.", "text_zh": "為 RDS 執行個體啟用多可用區部署。" }
+    ],
+    "answers": ["A"]
+  },
+  {
+    "stem_en": "A solutions architect is designing a system that will upload large images to Amazon S3. The application needs to process these images immediately after upload (e.g., creating thumbnails). What is the most decoupled and scalable way to achieve this?",
+    "stem_zh": "解決方案架構師正在設計一個將大型圖片上傳到 Amazon S3 的系統。應用程式需要在上傳後立即處理這些圖片（例如建立縮圖）。達成此目標最解耦且具擴充性的方法是什麼？",
+    "explanation_en": "Using S3 Event Notifications to trigger an AWS Lambda function is a serverless, event-driven architecture that ensures images are processed immediately upon upload without requiring a persistent server to monitor the bucket. This is highly decoupled and scales automatically.",
+    "explanation_zh": "使用 S3 事件通知觸發 AWS Lambda 函數是一種無伺服器、事件驅動的架構，可確保圖片在上傳後立即得到處理，而不需要持久性伺服器來監視儲存桶。這具有高度解耦性且會自動擴充。",
+    "difficulty": 2,
+    "domain": "Design Resilient Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Configure the application to trigger a processing script on the EC2 instance after each upload.", "text_zh": "配置應用程式在每次上傳後於 EC2 執行個體上觸發處理腳本。" },
+      { "label": "B", "text_en": "Set up an Amazon S3 Event Notification to trigger an AWS Lambda function.", "text_zh": "設定 Amazon S3 事件通知以觸發 AWS Lambda 函數。" },
+      { "label": "C", "text_en": "Create a cron job on an EC2 instance to scan the S3 bucket every minute.", "text_zh": "在 EC2 執行個體上建立 cron 作業，每分鐘掃描一次 S3 儲存桶。" },
+      { "label": "D", "text_en": "Use Amazon Kinesis Data Firehose to stream images to a processing server.", "text_zh": "使用 Amazon Kinesis Data Firehose 將圖片串流到處理伺服器。" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A company wants to detect malicious activity and unauthorized behavior within its AWS account, such as unusual API calls or potential data exfiltration. Which service provides continuous security monitoring and threat detection?",
+    "stem_zh": "一家公司希望在其 AWS 帳戶中偵測惡意活動和未經授權的行為，例如異常的 API 調用或潛在的數據外洩。哪種服務提供持續的安全監控和威脅偵測？",
+    "explanation_en": "Amazon GuardDuty is a threat detection service that continuously monitors for malicious activity and unauthorized behavior to protect your AWS accounts, workloads, and data. It analyzes VPC Flow Logs, CloudTrail logs, and DNS logs.",
+    "explanation_zh": "Amazon GuardDuty 是一項威脅偵測服務，可持續監控惡意活動和未經授權的行為，以保護您的 AWS 帳戶、工作負載和數據。它會分析 VPC 流程日誌、CloudTrail 日誌和 DNS 日誌。",
+    "difficulty": 1,
+    "domain": "Design Secure Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "AWS Shield", "text_zh": "AWS Shield" },
+      { "label": "B", "text_en": "AWS WAF", "text_zh": "AWS WAF" },
+      { "label": "C", "text_en": "Amazon GuardDuty", "text_zh": "Amazon GuardDuty" },
+      { "label": "D", "text_en": "Amazon Inspector", "text_zh": "Amazon Inspector" }
+    ],
+    "answers": ["C"]
+  },
+  {
+    "stem_en": "A company needs to store historical data for 7 years to meet regulatory requirements. The data is rarely accessed but must be retrievable within a few hours. Which storage solution is the most cost-effective?",
+    "stem_zh": "一家公司需要將歷史數據儲存 7 年以滿足監管要求。數據很少被存取，但必須能在幾小時內檢索。哪種儲存方案最具成本效益？",
+    "explanation_en": "Amazon S3 Glacier Flexible Retrieval (formerly Glacier) is the most cost-effective for long-term archival data that is rarely accessed and allows for retrieval times ranging from minutes to hours. S3 Glacier Deep Archive is cheaper but has a minimum retrieval time of 12 hours.",
+    "explanation_zh": "Amazon S3 Glacier Flexible Retrieval（原名 Glacier）對於很少存取的長期封存數據最具成本效益，且允許在幾分鐘到幾小時內檢索。S3 Glacier Deep Archive 更便宜，但最短檢索時間需要 12 小時。",
+    "difficulty": 1,
+    "domain": "Design Cost-Optimized Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Amazon S3 Standard-IA", "text_zh": "Amazon S3 Standard-IA" },
+      { "label": "B", "text_en": "Amazon S3 Glacier Flexible Retrieval", "text_zh": "Amazon S3 Glacier Flexible Retrieval" },
+      { "label": "C", "text_en": "Amazon S3 One Zone-IA", "text_zh": "Amazon S3 One Zone-IA" },
+      { "label": "D", "text_en": "Amazon Elastic Block Store (Amazon EBS)", "text_zh": "Amazon Elastic Block Store (Amazon EBS)" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A company is hosting a web application on AWS and wants to protect it from SQL injection and cross-site scripting (XSS) attacks. Which service should they use?",
+    "stem_zh": "一家公司在 AWS 上託管網頁應用程式，並希望保護其免受 SQL 注入和跨站點指令碼 (XSS) 攻擊。他們應該使用哪種服務？",
+    "explanation_en": "AWS WAF (Web Application Firewall) helps protect web applications from common web exploits like SQL injection and XSS by allowing you to create custom security rules. AWS Shield is for DDoS protection. GuardDuty is for threat detection in the account.",
+    "explanation_zh": "AWS WAF（網頁應用程式防火牆）透過允許您建立自定義安全規則，幫助保護網頁應用程式免受 SQL 注入和 XSS 等常見網頁漏洞攻擊。AWS Shield 用於 DDoS 防護。GuardDuty 用於帳戶內的威脅偵測。",
+    "difficulty": 1,
+    "domain": "Design Secure Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "AWS WAF", "text_zh": "AWS WAF" },
+      { "label": "B", "text_en": "AWS Shield", "text_zh": "AWS Shield" },
+      { "label": "C", "text_en": "Amazon Inspector", "text_zh": "Amazon Inspector" },
+      { "label": "D", "text_en": "AWS KMS", "text_zh": "AWS KMS" }
+    ],
+    "answers": ["A"]
+  },
+  {
+    "stem_en": "A solutions architect is designing a backup strategy for an application running on EC2. The backups must be automated and stored in a different AWS Region for disaster recovery. Which service can manage this process?",
+    "stem_zh": "解決方案架構師正在為執行於 EC2 的應用程式設計備份策略。備份必須自動化，並儲存在另一個 AWS 區域以進行災難復原。哪種服務可以管理此過程？",
+    "explanation_en": "AWS Backup is a fully managed service that centralizes and automates the backup of data across AWS services. It supports cross-region backup (copying backups to another region) as part of a backup plan.",
+    "explanation_zh": "AWS Backup 是一項完全託管的服務，可集中並自動化跨 AWS 服務的數據備份。它支援跨區域備份（將備份複製到另一個區域）作為備份計畫的一部分。",
+    "difficulty": 2,
+    "domain": "Design Resilient Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Amazon EBS Snapshots", "text_zh": "Amazon EBS 快照" },
+      { "label": "B", "text_en": "AWS Backup", "text_zh": "AWS Backup" },
+      { "label": "C", "text_en": "AWS DataSync", "text_zh": "AWS DataSync" },
+      { "label": "D", "text_en": "AWS Storage Gateway", "text_zh": "AWS Storage Gateway" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "An application requires an in-memory database to store session data with microsecond latency. Which AWS service is best suited for this requirement?",
+    "stem_zh": "一個應用程式需要一個記憶體內資料庫來儲存會話數據，並要求微秒級延遲。哪種 AWS 服務最適合此需求？",
+    "explanation_en": "Amazon ElastiCache is an in-memory data store that provides microsecond latency, making it ideal for caching and session management. DynamoDB is low millisecond, but ElastiCache (Redis or Memcached) is faster for this specific use case.",
+    "explanation_zh": "Amazon ElastiCache 是一個記憶體內數據存儲，提供微秒級延遲，非常適合快取和會話管理。DynamoDB 是毫秒級，但 ElastiCache (Redis 或 Memcached) 在此特定案例中更快。",
+    "difficulty": 1,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Amazon RDS", "text_zh": "Amazon RDS" },
+      { "label": "B", "text_en": "Amazon DynamoDB", "text_zh": "Amazon DynamoDB" },
+      { "label": "C", "text_en": "Amazon ElastiCache", "text_zh": "Amazon ElastiCache" },
+      { "label": "D", "text_en": "Amazon Redshift", "text_zh": "Amazon Redshift" }
+    ],
+    "answers": ["C"]
+  },
+  {
+    "stem_en": "A company is experiencing increased latency for its global users. The application is hosted on Network Load Balancers (NLBs) in two different AWS Regions. Which service should the solutions architect recommend to provide users with a single static IP address and improve performance by routing traffic through the AWS global network?",
+    "stem_zh": "一家公司的全球用戶遇到了延遲增加的問題。該應用程式託管在兩個不同 AWS 區域的網路負載平衡器 (NLB) 上。解決方案架構師應該推薦哪種服務，以便為用戶提供單一靜態 IP 地址，並通過 AWS 全球網絡路由流量來提高效能？",
+    "explanation_en": "AWS Global Accelerator provides static IP addresses that act as a fixed entry point to your application. It uses the AWS global network to route traffic to the optimal regional endpoint, reducing latency and jitter. CloudFront is for content caching (HTTPS), while Global Accelerator is better for non-HTTP protocols or when static IPs are required.",
+    "explanation_zh": "AWS Global Accelerator 提供靜態 IP 地址，作為應用程式的固定入口點。它使用 AWS 全球網絡將流量路由到最佳的區域端點，從而減少延遲和抖動。CloudFront 用於內容快取（HTTPS），而 Global Accelerator 更適合非 HTTP 協定或需要靜態 IP 的情況。",
+    "difficulty": 2,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Amazon CloudFront", "text_zh": "Amazon CloudFront" },
+      { "label": "B", "text_en": "AWS Global Accelerator", "text_zh": "AWS Global Accelerator" },
+      { "label": "C", "text_en": "Amazon Route 53 Latency Routing", "text_zh": "Amazon Route 53 延遲路由" },
+      { "label": "D", "text_en": "AWS Direct Connect", "text_zh": "AWS Direct Connect" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A company wants to track its AWS costs by department. Each department has its own set of AWS resources. Which AWS feature will allow the company to categorize and report costs by department?",
+    "stem_zh": "一家公司希望按部門追蹤其 AWS 成本。每個部門都有自己的一套 AWS 資源。哪種 AWS 功能允許公司按部門對成本進行分類和報告？",
+    "explanation_en": "Cost Allocation Tags allow you to categorize your AWS resources (e.g., by Department, Project, or Owner). Once activated, AWS uses these tags to organize your resource costs on your cost allocation report, making it easy to track expenses in AWS Cost Explorer.",
+    "explanation_zh": "成本分配標籤 (Cost Allocation Tags) 允許您對 AWS 資源進行分類（例如按部門、專案或擁有者）。啟用後，AWS 使用這些標籤在成本分配報告中整理資源成本，使您可以在 AWS Cost Explorer 中輕鬆追蹤費用。",
+    "difficulty": 1,
+    "domain": "Design Cost-Optimized Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "AWS Budgets", "text_zh": "AWS Budgets" },
+      { "label": "B", "text_en": "Cost Allocation Tags", "text_zh": "成本分配標籤" },
+      { "label": "C", "text_en": "AWS Trusted Advisor", "text_zh": "AWS Trusted Advisor" },
+      { "label": "D", "text_en": "Consolidated Billing", "text_zh": "合併帳單" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A company's dynamic website is hosted on EC2 instances behind an Application Load Balancer. The company wants to improve the response time for users globally. Which service should they use?",
+    "stem_zh": "一家公司的動態網站託管在應用程式負載平衡器後端的 EC2 執行個體上。公司希望縮短全球用戶的響應時間。他們應該使用哪種服務？",
+    "explanation_en": "Amazon CloudFront can cache both static and dynamic content. For dynamic content, CloudFront improves performance by optimizing the connection path from the edge location to the origin (ALB) via the AWS global network.",
+    "explanation_zh": "Amazon CloudFront 可以快取靜態和動態內容。對於動態內容，CloudFront 通過 AWS 全球網絡優化從邊緣節點到來源 (ALB) 的連接路徑，從而提高效能。",
+    "difficulty": 2,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Amazon CloudFront", "text_zh": "Amazon CloudFront" },
+      { "label": "B", "text_en": "Amazon Route 53", "text_zh": "Amazon Route 53" },
+      { "label": "C", "text_en": "AWS Global Accelerator", "text_zh": "AWS Global Accelerator" },
+      { "label": "D", "text_en": "Amazon ElastiCache", "text_zh": "Amazon ElastiCache" }
+    ],
+    "answers": ["A"]
+  },
+  {
+    "stem_en": "A company needs to store data that must be accessed once every 6 months. The data must be available within 12 hours. What is the most cost-effective S3 storage class?",
+    "stem_zh": "一家公司需要儲存每 6 個月存取一次的數據。數據必須在 12 小時內可用。最具成本效益的 S3 儲存方案是什麼？",
+    "explanation_en": "S3 Glacier Deep Archive is the lowest-cost storage class in S3. It is designed for long-term retention of data that is rarely accessed (once or twice a year) and provides retrieval within 12 to 48 hours.",
+    "explanation_zh": "S3 Glacier Deep Archive 是 S3 中成本最低的儲存方案。它專為很少存取（一年一兩次）的長期數據保留而設計，並在 12 到 48 小時內提供檢索。",
+    "difficulty": 1,
+    "domain": "Design Cost-Optimized Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "S3 Glacier Flexible Retrieval", "text_zh": "S3 Glacier Flexible Retrieval" },
+      { "label": "B", "text_en": "S3 Glacier Deep Archive", "text_zh": "S3 Glacier Deep Archive" },
+      { "label": "C", "text_en": "S3 Standard-IA", "text_zh": "S3 Standard-IA" },
+      { "label": "D", "text_en": "S3 One Zone-IA", "text_zh": "S3 One Zone-IA" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A company has multiple AWS accounts and wants to simplify billing and benefit from volume discounts. Which AWS service should the solutions architect recommend?",
+    "stem_zh": "一家公司有多個 AWS 帳戶，並希望簡化帳單並從批量折扣中受益。解決方案架構師應該推薦哪種 AWS 服務？",
+    "explanation_en": "AWS Organizations allows for consolidated billing, which combines the usage across all accounts in the organization to reach volume pricing tiers faster, potentially lowering the overall cost.",
+    "explanation_zh": "AWS Organizations 允許合併帳單（Consolidated Billing），這會結合組織中所有帳戶的使用量，以更快達到批量定價層級，從而降低整體成本。",
+    "difficulty": 1,
+    "domain": "Design Cost-Optimized Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "AWS Cost Explorer", "text_zh": "AWS Cost Explorer" },
+      { "label": "B", "text_en": "AWS Organizations", "text_zh": "AWS Organizations" },
+      { "label": "C", "text_en": "AWS Budgets", "text_zh": "AWS Budgets" },
+      { "label": "D", "text_en": "AWS Trusted Advisor", "text_zh": "AWS Trusted Advisor" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "An application requires a database that can scale globally and support document, graph, and key-value data models. Which AWS service provides this multi-model capability?",
+    "stem_zh": "一個應用程式需要一個可以全球擴展並支援文件、圖形和鍵值數據模型的資料庫。哪種 AWS 服務提供這種多模型能力？",
+    "explanation_en": "Amazon Cosmos DB is an Azure service, so for AWS SAA-C03, the answer is Amazon DynamoDB, which supports key-value and document models. However, if the question asks for a multi-model database specifically including graph in a single engine context, Amazon Neptune is for graphs, but DynamoDB is the primary global-scale NoSQL answer.",
+    "explanation_zh": "Amazon DynamoDB 是 AWS 的主要全球級 NoSQL 資料庫，支援鍵值和文件模型。雖然 Neptune 專門用於圖形，但在考試中提到「全球規模 NoSQL」時，DynamoDB 通常是標準答案。",
+    "difficulty": 2,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Amazon RDS", "text_zh": "Amazon RDS" },
+      { "label": "B", "text_en": "Amazon DynamoDB", "text_zh": "Amazon DynamoDB" },
+      { "label": "C", "text_en": "Amazon Redshift", "text_zh": "Amazon Redshift" },
+      { "label": "D", "text_en": "Amazon DocumentDB", "text_zh": "Amazon DocumentDB" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A solutions architect needs to ensure that all data uploaded to an S3 bucket is encrypted using keys managed by AWS KMS. The solution must automatically reject any unencrypted uploads. How can this be achieved?",
+    "stem_zh": "解決方案架構師需要確保所有上傳到 S3 儲存桶的數據都使用 AWS KMS 管理的金鑰進行加密。該方案必須自動拒絕任何未加密的上傳。這該如何達成？",
+    "explanation_en": "Using an S3 Bucket Policy that denies 's3:PutObject' if the 's3:x-amz-server-side-encryption' header is not set to 'aws:kms' is the correct way to enforce encryption at the point of upload.",
+    "explanation_zh": "使用 S3 儲存桶策略（Bucket Policy），如果 's3:x-amz-server-side-encryption' 標頭未設置為 'aws:kms'，則拒絕 's3:PutObject'，這是強制在上傳點執行加密的正確方法。",
+    "difficulty": 2,
+    "domain": "Design Secure Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Enable Default Encryption on the S3 bucket.", "text_zh": "在 S3 儲存桶上啟用預設加密。" },
+      { "label": "B", "text_en": "Create an IAM policy for all users.", "text_zh": "為所有用戶建立 IAM 策略。" },
+      { "label": "C", "text_en": "Use an S3 Bucket Policy to deny uploads without the encryption header.", "text_zh": "使用 S3 儲存桶策略拒絕沒有加密標頭的上傳。" },
+      { "label": "D", "text_en": "Enable S3 Versioning.", "text_zh": "啟用 S3 版本控制。" }
+    ],
+    "answers": ["C"]
+  },
+  {
+    "stem_en": "A company is developing a new application and wants to deploy it without managing the underlying infrastructure. The application requires a platform that handles capacity provisioning, load balancing, and auto-scaling automatically. Which AWS service should they use?",
+    "stem_zh": "一家公司正在開發新的應用程式，並希望在不管理底層基礎設施的情況下進行部署。該應用程式需要一個能自動處理容量配置、負載平衡和自動擴充的平台。他們應該使用哪種 AWS 服務？",
+    "explanation_en": "AWS Elastic Beanstalk is a Platform as a Service (PaaS) that allows developers to upload their code and automatically handles deployment, from capacity provisioning and load balancing to auto-scaling and health monitoring.",
+    "explanation_zh": "AWS Elastic Beanstalk 是一種平台即服務 (PaaS)，允許開發人員上傳其代碼，並自動處理從容量配置、負載平衡到自動擴充和健康監測的部署工作。",
+    "difficulty": 1,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "AWS CloudFormation", "text_zh": "AWS CloudFormation" },
+      { "label": "B", "text_en": "AWS Elastic Beanstalk", "text_zh": "AWS Elastic Beanstalk" },
+      { "label": "C", "text_en": "Amazon EC2 Auto Scaling", "text_zh": "Amazon EC2 Auto Scaling" },
+      { "label": "D", "text_en": "AWS OpsWorks", "text_zh": "AWS OpsWorks" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A solutions architect needs to design a solution to protect a web application from common web exploits and DDoS attacks. The application is delivered via Amazon CloudFront. Which combination of services should be used?",
+    "stem_zh": "解決方案架構師需要設計一個方案，保護網頁應用程式免受常見網頁漏洞和 DDoS 攻擊。該應用程式透過 Amazon CloudFront 交付。應使用哪種服務組合？",
+    "explanation_en": "AWS WAF protects against common web exploits (L7), and AWS Shield provides protection against DDoS attacks (L3/L4). Both integrate seamlessly with CloudFront.",
+    "explanation_zh": "AWS WAF 保護免受常見網頁漏洞 (L7) 攻擊，而 AWS Shield 提供針對 DDoS 攻擊 (L3/L4) 的保護。兩者皆可與 CloudFront 無縫整合。",
+    "difficulty": 2,
+    "domain": "Design Secure Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "AWS WAF and AWS Shield", "text_zh": "AWS WAF 與 AWS Shield" },
+      { "label": "B", "text_en": "Amazon GuardDuty and AWS WAF", "text_zh": "Amazon GuardDuty 與 AWS WAF" },
+      { "label": "C", "text_en": "AWS Shield and Amazon Inspector", "text_zh": "AWS Shield 與 Amazon Inspector" },
+      { "label": "D", "text_en": "Amazon Macie and AWS WAF", "text_zh": "Amazon Macie 與 AWS WAF" }
+    ],
+    "answers": ["A"]
+  },
+  {
+    "stem_en": "A company wants to store data in an Amazon S3 bucket. Compliance requirements state that the data must be encrypted before it is sent to AWS. Which encryption method should the company use?",
+    "stem_zh": "一家公司希望將數據儲存在 Amazon S3 儲存桶中。合規性要求規定數據在發送到 AWS 之前必須進行加密。公司應該使用哪種加密方法？",
+    "explanation_en": "Client-side encryption is the act of encrypting data before sending it to Amazon S3. This ensures that the data is encrypted during transit and while at rest, with the customer managing the encryption process.",
+    "explanation_zh": "用戶端加密 (Client-side encryption) 是在將數據發送到 Amazon S3 之前進行加密的行為。這確保了數據在傳輸和靜態存儲期間都是加密的，且由客戶管理加密過程。",
+    "difficulty": 2,
+    "domain": "Design Secure Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "SSE-S3", "text_zh": "SSE-S3" },
+      { "label": "B", "text_en": "SSE-KMS", "text_zh": "SSE-KMS" },
+      { "label": "C", "text_en": "SSE-C", "text_zh": "SSE-C" },
+      { "label": "D", "text_en": "Client-side encryption", "text_zh": "用戶端加密" }
+    ],
+    "answers": ["D"]
+  },
+  {
+    "stem_en": "A company needs to expose its internal microservices as APIs to external partners. The solution must support throttling, authentication, and caching. Which AWS service should be recommended?",
+    "stem_zh": "一家公司需要將其內部微服務作為 API 開放給外部合作夥伴。該方案必須支援流量限制 (Throttling)、身分驗證和快取。應推薦哪種 AWS 服務？",
+    "explanation_en": "Amazon API Gateway is a fully managed service that makes it easy for developers to create, publish, maintain, monitor, and secure APIs. It natively supports throttling, authentication (IAM/Cognito/Lambda Authorizers), and caching.",
+    "explanation_zh": "Amazon API Gateway 是一項完全託管的服務，讓開發人員能輕鬆建立、發佈、維護、監控和保護 API。它原生支援流量限制、身分驗證和快取功能。",
+    "difficulty": 1,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Application Load Balancer", "text_zh": "應用程式負載平衡器" },
+      { "label": "B", "text_en": "Amazon API Gateway", "text_zh": "Amazon API Gateway" },
+      { "label": "C", "text_en": "AWS AppSync", "text_zh": "AWS AppSync" },
+      { "label": "D", "text_en": "Amazon Route 53", "text_zh": "Amazon Route 53" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "Which AWS service provides a visual interface to create and automate workflows that coordinate multiple AWS services?",
+    "stem_zh": "哪種 AWS 服務提供視覺化界面來建立和自動化協調多個 AWS 服務的工作流？",
+    "explanation_en": "AWS Step Functions is a low-code visual workflow service used to orchestrate AWS services, automate business processes, and build serverless applications.",
+    "explanation_zh": "AWS Step Functions 是一個低程式碼的視覺化工作流服務，用於協調 AWS 服務、自動化業務流程並構建無伺服器應用程式。",
+    "difficulty": 1,
+    "domain": "Design Resilient Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "AWS Glue", "text_zh": "AWS Glue" },
+      { "label": "B", "text_en": "AWS Step Functions", "text_zh": "AWS Step Functions" },
+      { "label": "C", "text_en": "AWS Lambda", "text_zh": "AWS Lambda" },
+      { "label": "D", "text_en": "AWS SWF", "text_zh": "AWS SWF" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A company wants to migrate its on-premises database to AWS with minimal downtime. The database is 10 TB in size. Which service should they use?",
+    "stem_zh": "一家公司希望以最小停機時間將其本地資料庫遷移到 AWS。資料庫大小為 10 TB。他們應該使用哪種服務？",
+    "explanation_en": "AWS Database Migration Service (DMS) helps you migrate databases to AWS quickly and securely while the source database remains functional during the migration, minimizing downtime.",
+    "explanation_zh": "AWS Database Migration Service (DMS) 幫助您快速且安全地將資料庫遷移到 AWS，同時來源資料庫在遷移期間保持運行，從而將停機時間降至最低。",
+    "difficulty": 2,
+    "domain": "Design Resilient Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "AWS Snowball", "text_zh": "AWS Snowball" },
+      { "label": "B", "text_en": "AWS DMS", "text_zh": "AWS DMS" },
+      { "label": "C", "text_en": "AWS DataSync", "text_zh": "AWS DataSync" },
+      { "label": "D", "text_en": "Amazon S3 Transfer Acceleration", "text_zh": "Amazon S3 Transfer Acceleration" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A company is launching a new application that will have very high but short-lived spikes in traffic. Which EC2 feature ensures that the application can handle the load by automatically adding or removing instances?",
+    "stem_zh": "一家公司正在發佈一個新應用程式，該程式會出現非常高但短暫的流量高峰。哪種 EC2 功能可透過自動增加或刪除執行個體來確保應用程式能處理負載？",
+    "explanation_en": "Amazon EC2 Auto Scaling helps you maintain application availability and allows you to automatically add or remove EC2 instances according to conditions you define.",
+    "explanation_zh": "Amazon EC2 Auto Scaling 幫助您維持應用程式可用性，並允許您根據定義的條件自動增加或刪除 EC2 執行個體。",
+    "difficulty": 1,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Elastic Load Balancing", "text_zh": "Elastic Load Balancing" },
+      { "label": "B", "text_en": "EC2 Auto Scaling", "text_zh": "EC2 Auto Scaling" },
+      { "label": "C", "text_en": "Amazon CloudFront", "text_zh": "Amazon CloudFront" },
+      { "label": "D", "text_en": "Amazon Route 53", "text_zh": "Amazon Route 53" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A solutions architect needs to discover and protect sensitive data, such as personally identifiable information (PII), stored in Amazon S3 buckets. Which service should be used?",
+    "stem_zh": "解決方案架構師需要探索並保護存儲在 Amazon S3 儲存桶中的敏感數據，例如個人身分資訊 (PII)。應使用哪種服務？",
+    "explanation_en": "Amazon Macie is a fully managed data security and data privacy service that uses machine learning and pattern matching to discover and protect your sensitive data in Amazon S3.",
+    "explanation_zh": "Amazon Macie 是一項完全託管的數據安全和數據隱私服務，使用機器學習和模式匹配來探索並保護您在 Amazon S3 中的敏感數據。",
+    "difficulty": 2,
+    "domain": "Design Secure Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Amazon GuardDuty", "text_zh": "Amazon GuardDuty" },
+      { "label": "B", "text_en": "Amazon Macie", "text_zh": "Amazon Macie" },
+      { "label": "C", "text_en": "Amazon Inspector", "text_zh": "Amazon Inspector" },
+      { "label": "D", "text_en": "AWS KMS", "text_zh": "AWS KMS" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A company wants to manage its infrastructure using code (IaC) to ensure consistent deployments across multiple environments. Which AWS service should they use?",
+    "stem_zh": "一家公司希望使用程式碼 (IaC) 來管理其基礎設施，以確保在多個環境中實現一致的部署。他們應該使用哪種 AWS 服務？",
+    "explanation_en": "AWS CloudFormation allows you to model and set up your AWS resources so that you can spend less time managing those resources and more time focusing on your applications. You create a template that describes all the AWS resources that you want.",
+    "explanation_zh": "AWS CloudFormation 允許您建模並設定 AWS 資源。您可以建立一個範本來描述您想要的所有 AWS 資源，從而減少管理資源的時間。",
+    "difficulty": 1,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "AWS Elastic Beanstalk", "text_zh": "AWS Elastic Beanstalk" },
+      { "label": "B", "text_en": "AWS CloudFormation", "text_zh": "AWS CloudFormation" },
+      { "label": "C", "text_en": "AWS CodeDeploy", "text_zh": "AWS CodeDeploy" },
+      { "label": "D", "text_en": "AWS OpsWorks", "text_zh": "AWS OpsWorks" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "Which service helps you to visualize, understand, and manage your AWS costs and usage over time?",
+    "stem_zh": "哪種服務可幫助您隨時間視覺化、了解並管理您的 AWS 成本和用量？",
+    "explanation_en": "AWS Cost Explorer has an easy-to-use interface that lets you visualize, understand, and manage your AWS costs and usage over time.",
+    "explanation_zh": "AWS Cost Explorer 具有易於使用的界面，讓您能隨時間視覺化、了解並管理您的 AWS 成本和用量。",
+    "difficulty": 1,
+    "domain": "Design Cost-Optimized Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "AWS Budgets", "text_zh": "AWS Budgets" },
+      { "label": "B", "text_en": "AWS Cost Explorer", "text_zh": "AWS Cost Explorer" },
+      { "label": "C", "text_en": "AWS Trusted Advisor", "text_zh": "AWS Trusted Advisor" },
+      { "label": "D", "text_en": "AWS Pricing Calculator", "text_zh": "AWS Pricing Calculator" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A company is experiencing slow performance for its users in Australia when accessing a website hosted in the US-East-1 region. What can be done to improve the user experience?",
+    "stem_zh": "一家澳洲用戶在訪問託管在 US-East-1 區域的網站時遇到了效能緩慢的問題。可以採取什麼措施來改善用戶體驗？",
+    "explanation_en": "Amazon CloudFront is a global content delivery network (CDN) service that accelerates delivery of your websites, APIs, video content, or other web assets. It caches content closer to users at edge locations.",
+    "explanation_zh": "Amazon CloudFront 是一個全球內容分發網絡 (CDN) 服務，可加速網站、API 或其他內容的交付。它在更接近用戶的邊緣節點快取內容。",
+    "difficulty": 1,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Move the S3 bucket to Australia.", "text_zh": "將 S3 儲存桶移至澳洲。" },
+      { "label": "B", "text_en": "Use Amazon CloudFront to cache content at edge locations.", "text_zh": "使用 Amazon CloudFront 在邊緣節點快取內容。" },
+      { "label": "C", "text_en": "Increase the size of the EC2 instances.", "text_zh": "增加 EC2 執行個體的大小。" },
+      { "label": "D", "text_en": "Use Amazon Route 53 simple routing.", "text_zh": "使用 Amazon Route 53 簡單路由。" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "Which service allows you to run code in response to events without provisioning or managing servers?",
+    "stem_zh": "哪種服務允許您在不配置或管理伺服器的情況下，根據事件運行程式碼？",
+    "explanation_en": "AWS Lambda lets you run code without provisioning or managing servers. You pay only for the compute time you consume.",
+    "explanation_zh": "AWS Lambda 讓您在不配置或管理伺服器的情況下運行程式碼。您只需為消耗的運算時間付費。",
+    "difficulty": 1,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Amazon EC2", "text_zh": "Amazon EC2" },
+      { "label": "B", "text_en": "AWS Lambda", "text_zh": "AWS Lambda" },
+      { "label": "C", "text_en": "AWS Elastic Beanstalk", "text_zh": "AWS Elastic Beanstalk" },
+      { "label": "D", "text_en": "Amazon ECS", "text_zh": "Amazon ECS" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A company wants to receive an alert whenever its monthly AWS bill is projected to exceed a certain threshold. Which AWS service should they use?",
+    "stem_zh": "一家公司希望在其每月 AWS 帳單預計超過特定閾值時收到警報。他們應該使用哪種 AWS 服務？",
+    "explanation_en": "AWS Budgets gives you the ability to set custom budgets that alert you when your costs or usage exceed (or are forecasted to exceed) your budgeted amount.",
+    "explanation_zh": "AWS Budgets 讓您能設定自定義預算，當成本或用量超過（或預計超過）預算金額時，它會向您發出警報。",
+    "difficulty": 1,
+    "domain": "Design Cost-Optimized Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "AWS Cost Explorer", "text_zh": "AWS Cost Explorer" },
+      { "label": "B", "text_en": "AWS Budgets", "text_zh": "AWS Budgets" },
+      { "label": "C", "text_en": "AWS Trusted Advisor", "text_zh": "AWS Trusted Advisor" },
+      { "label": "D", "text_en": "Amazon CloudWatch", "text_zh": "Amazon CloudWatch" }
+    ],
+    "answers": ["B"]
+  }
+]
