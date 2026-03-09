@@ -8,11 +8,17 @@ from openai import OpenAI
 
 load_dotenv()
 
-OPENAI_API_KEY = os.environ["OPENAI_API_KEY"]
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+if not OPENAI_API_KEY:
+    raise SystemExit(
+        "Error: OPENAI_API_KEY environment variable is not set.\n"
+        "Please set it via:\n"
+        "  export OPENAI_API_KEY='your-api-key'  # or add OPENAI_API_KEY=your-api-key to your .env file"
+    )
 QUESTION_API_URL = os.getenv("QUESTION_API_URL", "http://localhost:8000/questions/")
 OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-5-mini")
 
-INPUT_FILE = Path("data/questions_en_1.json")
+INPUT_FILE = Path("data/questions.json")
 OUTPUT_FILE = Path("data/questions_bilingual.json")
 
 client = OpenAI(api_key=OPENAI_API_KEY)
@@ -54,7 +60,12 @@ def translate_question(question: dict) -> dict:
     )
 
     text = response.output_text.strip()
-    return json.loads(text)
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        raise ValueError(
+            f"Failed to parse model response as JSON.\nRaw output:\n{text}"
+        )
 
 
 def import_question(payload: dict) -> requests.Response:
