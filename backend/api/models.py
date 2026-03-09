@@ -26,8 +26,10 @@ class Question(Base):
     __tablename__ = "questions"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    stem: Mapped[str] = mapped_column(Text, nullable=False)
-    explanation: Mapped[str | None] = mapped_column(Text, nullable=True)
+    stem_en: Mapped[str] = mapped_column(Text, nullable=False)
+    stem_zh: Mapped[str] = mapped_column(Text, nullable=False)
+    explanation_en: Mapped[str | None] = mapped_column(Text, nullable=True)
+    explanation_zh: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     difficulty: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
 
@@ -79,7 +81,8 @@ class Choice(Base):
     # "A", "B", "C", "D"
     label: Mapped[str] = mapped_column(Text, nullable=False)
 
-    text: Mapped[str] = mapped_column(Text, nullable=False)
+    text_en: Mapped[str] = mapped_column(Text, nullable=False)
+    text_zh: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),

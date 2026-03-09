@@ -56,8 +56,10 @@ def get_question(question_id: int, db: Session = Depends(get_db)) -> QuestionOut
 def create_question(payload: QuestionCreate, db: Session = Depends(get_db)) -> QuestionOut:
     # 1) create Question
     q = Question(
-        stem=payload.stem,
-        explanation=payload.explanation,
+        stem_en=payload.stem_en,
+        stem_zh=payload.stem_zh,
+        explanation_en=payload.explanation_en,
+        explanation_zh=payload.explanation_zh,
         difficulty=payload.difficulty,
         domain=payload.domain,
         question_type=payload.question_type,
@@ -69,7 +71,12 @@ def create_question(payload: QuestionCreate, db: Session = Depends(get_db)) -> Q
     # 2) create choices
     label_to_choice: dict[str, Choice] = {}
     for c in payload.choices:
-        choice = Choice(question_id=q.id, label=c.label.strip(), text=c.text)
+        choice = Choice(
+            question_id=q.id,
+            label=c.label.strip(),
+            text_en=c.text_en,
+            text_zh=c.text_zh,
+        )
         db.add(choice)
         db.flush()  # get choice.id
         label_to_choice[choice.label] = choice

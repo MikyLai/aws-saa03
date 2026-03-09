@@ -1,0 +1,276 @@
+[
+  {
+    "stem_en": "A company is using Amazon CloudFront to deliver content from its website. The company enabled logging on the CloudFront distribution. The logs are saved in an Amazon S3 bucket owned by the company. The company wants to perform advanced analysis on the logs and build visualizations. What should the solutions architect recommend to meet these requirements?",
+    "explanation_en": "Use standard SQL queries in Amazon Athena to analyze the CloudFront logs in the S3 bucket. Visualize the results with Amazon QuickSight. Athena can run SQL queries directly against data stored in Amazon S3, and QuickSight can build visualizations from Athena query results. AWS Glue is used for ETL, not visualization. DynamoDB is a NoSQL database and does not support direct SQL queries on S3 log data.",
+    "difficulty": 2,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      {
+        "label": "A",
+        "text_en": "Use standard SQL queries in Amazon Athena to analyze the CloudFront logs in the S3 bucket. Visualize the results with Amazon QuickSight."
+      },
+      {
+        "label": "B",
+        "text_en": "Use standard SQL queries in Amazon DynamoDB to analyze the CloudFront logs in the S3 bucket. Visualize the results with AWS Glue."
+      },
+      {
+        "label": "C",
+        "text_en": "Use standard SQL queries in Amazon Athena to analyze the CloudFront logs in the S3 bucket. Visualize the results with AWS Glue."
+      },
+      {
+        "label": "D",
+        "text_en": "Use standard SQL queries in Amazon DynamoDB to analyze the CloudFront logs in the S3 bucket. Visualize the results with Amazon QuickSight."
+      }
+    ],
+    "answers": ["A"]
+  },
+  {
+    "stem_en": "An application is running on an Amazon EC2 instance in VPC-A. The application needs to access files on another EC2 instance in VPC-B. VPC-A and VPC-B are in separate AWS accounts. What is the best solution to allow the EC2 instance in VPC-A to securely access the EC2 instance in VPC-B? The solution should not have a single point of failure or bandwidth bottlenecks.",
+    "explanation_en": "Set up a VPC peering connection between VPC-A and VPC-B. This allows private, redundant connectivity between the VPCs across accounts without traversing the public internet. VPC peering provides full bidirectional bandwidth between the VPCs and does not have a single point of failure.",
+    "difficulty": 2,
+    "domain": "Design Secure Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      {
+        "label": "A",
+        "text_en": "Set up VPC gateway endpoints for the EC2 instance in VPC-B."
+      },
+      {
+        "label": "B",
+        "text_en": "Set up a VPC peering connection between VPC-A and VPC-B."
+      },
+      {
+        "label": "C",
+        "text_en": "Attach a virtual private gateway to VPC-B and configure routing from VPC-A."
+      },
+      {
+        "label": "D",
+        "text_en": "Create a private virtual interface for the EC2 instance in VPC-B and add routes from VPC-A."
+      }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A company uses many Amazon EC2 instances to run an application. The application reads and writes data to an Amazon DynamoDB table. The size of the DynamoDB table keeps growing. But the application only needs data from the last 30 days. What is the most cost-effective solution with the least effort to meet these needs?",
+    "explanation_en": "Configure DynamoDB TTL to expire old data. DynamoDB TTL automatically expires data older than 30 days. This is the most cost-effective and least effort solution because it does not require application code changes or extra infrastructure.",
+    "difficulty": 2,
+    "domain": "Design Cost-Optimized Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      {
+        "label": "A",
+        "text_en": "Use DynamoDB Streams to delete old data."
+      },
+      {
+        "label": "B",
+        "text_en": "Use a monitoring tool to delete old data."
+      },
+      {
+        "label": "C",
+        "text_en": "Redeploy the entire system every 30 days."
+      },
+      {
+        "label": "D",
+        "text_en": "Configure DynamoDB TTL to expire old data."
+      }
+    ],
+    "answers": ["D"]
+  },
+  {
+    "stem_en": "A company wants to move its Windows file shares to Amazon FSx for Windows File Server. The shares use Active Directory groups to control access. The company wants to restrict access to shares, folders, and files in FSx using the existing Active Directory groups after moving to AWS. Which solution will meet these requirements?",
+    "explanation_en": "Join the FSx file system to the on-premises Active Directory. Joining the FSx file system to the existing Active Directory allows the existing Active Directory groups and permissions to be directly used to control access to shares, folders, and files in FSx after migrating to AWS.",
+    "difficulty": 2,
+    "domain": "Design Secure Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      {
+        "label": "A",
+        "text_en": "Create an IAM service-linked role for the FSx file system."
+      },
+      {
+        "label": "B",
+        "text_en": "Assign a tag to the FSx file system and map Active Directory groups to IAM groups."
+      },
+      {
+        "label": "C",
+        "text_en": "Create an Active Directory Connector to connect the on-premises Active Directory to AWS."
+      },
+      {
+        "label": "D",
+        "text_en": "Join the FSx file system to the on-premises Active Directory."
+      }
+    ],
+    "answers": ["D"]
+  },
+  {
+    "stem_en": "A company has a dynamic web application running on two Amazon EC2 instances. The application uses the company’s own SSL certificate on each instance for SSL encryption and decryption. There has been an increase in traffic to the application recently. The operations team found that the SSL encryption and decryption is using up the maximum compute capacity of the web servers. What should be done to increase the application's performance?",
+    "explanation_en": "Import the SSL certificate into AWS Certificate Manager (ACM). Create an Application Load Balancer with an HTTPS listener that uses the ACM SSL certificate. This offloads SSL work from the EC2 instances and frees CPU capacity for the application.",
+    "difficulty": 2,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      {
+        "label": "A",
+        "text_en": "Create an Amazon S3 bucket, migrate the SSL certificate to it, and configure the EC2 instances to reference the bucket for SSL termination."
+      },
+      {
+        "label": "B",
+        "text_en": "Create a new SSL certificate using AWS Certificate Manager (ACM) and install it on each EC2 instance."
+      },
+      {
+        "label": "C",
+        "text_en": "Create another EC2 instance as a proxy server. Migrate the SSL certificate to the new instance and configure it to direct connections to the existing instances."
+      },
+      {
+        "label": "D",
+        "text_en": "Import the SSL certificate into AWS Certificate Manager (ACM). Create an Application Load Balancer with an HTTPS listener that uses the ACM SSL certificate."
+      }
+    ],
+    "answers": ["D"]
+  },
+  {
+    "stem_en": "A company stores confidential audit documents in an Amazon S3 bucket. The bucket uses policies to restrict access to authorized users. The company wants a more secure way to prevent accidental deletion of documents. What should be done?",
+    "explanation_en": "Enable versioning and MFA Delete on the S3 bucket. Versioning retains deleted objects as previous versions, while MFA Delete requires additional authentication to permanently delete versions.",
+    "difficulty": 2,
+    "domain": "Design Secure Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      {
+        "label": "A",
+        "text_en": "Enable MFA on the audit team IAM user accounts."
+      },
+      {
+        "label": "B",
+        "text_en": "Enable versioning and MFA Delete on the S3 bucket."
+      },
+      {
+        "label": "C",
+        "text_en": "Encrypt the bucket with AWS KMS and restrict access to the key."
+      },
+      {
+        "label": "D",
+        "text_en": "Add a Lifecycle policy to deny delete access during audits."
+      }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A company has two applications. One application sends messages with data to process. The other application receives and processes the messages. The company wants to use an AWS service for sending messages between the applications. The sender application can send about 1000 messages per hour. It can take up to 2 days to process all the messages. If processing fails, the messages must be retained. This should not impact processing of other messages. Which AWS service meets these requirements in the most efficient way?",
+    "explanation_en": "Use an Amazon SQS queue. Configure a dead-letter queue to collect failed messages. SQS decouples producers from consumers and a dead-letter queue retains failed messages without impacting processing of other messages.",
+    "difficulty": 2,
+    "domain": "Design Resilient Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      {
+        "label": "A",
+        "text_en": "Set up an Amazon EC2 instance running Redis to store, process and delete messages."
+      },
+      {
+        "label": "B",
+        "text_en": "Use an Amazon SQS queue. Configure a dead-letter queue to collect failed messages."
+      },
+      {
+        "label": "C",
+        "text_en": "Use an Amazon Kinesis data stream to receive messages. Integrate the processor with the Kinesis Client Library."
+      },
+      {
+        "label": "D",
+        "text_en": "Subscribe the processor to an Amazon SNS topic. Integrate the sender to the SNS topic."
+      }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "How long can a message be retained in an Amazon SQS queue?",
+    "explanation_en": "14 days is correct. The maximum message retention period for Amazon SQS is 14 days.",
+    "difficulty": 1,
+    "domain": "Design Resilient Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      {
+        "label": "A",
+        "text_en": "14 days"
+      },
+      {
+        "label": "B",
+        "text_en": "7 days"
+      },
+      {
+        "label": "C",
+        "text_en": "10 days"
+      },
+      {
+        "label": "D",
+        "text_en": "1 day"
+      }
+    ],
+    "answers": ["A"]
+  },
+  {
+    "stem_en": "Which of the following are valid Route 53 routing policies? (Choose three)",
+    "explanation_en": "\"Weighted,\" \"Simple,\" and \"Latency\" are correct. Latency, Simple, and Weighted are valid Route 53 routing policies, whereas Complex and Shortest First are not. \"Complex\" is incorrect because Complex is not a routing policy. \"Shortest First\" is incorrect because Shortest First is not a routing policy.",
+    "difficulty": 1,
+    "domain": "Design Resilient Architectures",
+    "question_type": "multi",
+    "active": true,
+    "choices": [
+      {
+        "label": "A",
+        "text_en": "Complex"
+      },
+      {
+        "label": "B",
+        "text_en": "Latency"
+      },
+      {
+        "label": "C",
+        "text_en": "Shortest First"
+      },
+      {
+        "label": "D",
+        "text_en": "Weighted"
+      },
+      {
+        "label": "E",
+        "text_en": "Simple"
+      }
+    ],
+    "answers": ["B", "D", "E"]
+  },
+  {
+    "stem_en": "A company implemented a self-managed DNS solution on 3 Amazon EC2 instances behind a Network Load Balancer in the us-west-2 Region. Most users are in the US and Europe. The company launched 3 EC2 instances in eu-west-1 and added them as targets to a new Network Load Balancer. What can the company use to route traffic to all EC2 instances?",
+    "explanation_en": "Create a Global Accelerator standard accelerator. Create endpoint groups in us-west-2 and eu-west-1. Add the 2 Network Load Balancers as endpoints. Global Accelerator provides traffic routing across regions to all endpoints.",
+    "difficulty": 2,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      {
+        "label": "A",
+        "text_en": "Create a Route 53 geolocation routing policy to route to one of the 2 Network Load Balancers. Use it as origin for a CloudFront distribution."
+      },
+      {
+        "label": "B",
+        "text_en": "Attach Elastic IPs to the 6 EC2 instances. Create a Route 53 geolocation routing policy to route to the instances. Use it as origin for a CloudFront distribution."
+      },
+      {
+        "label": "C",
+        "text_en": "Create a Global Accelerator standard accelerator. Create endpoint groups in us-west-2 and eu-west-1. Add the 2 Network Load Balancers as endpoints."
+      },
+      {
+        "label": "D",
+        "text_en": "Replace the 2 Network Load Balancers with 2 Application Load Balancers. Create a Route 53 latency routing policy to route to one. Use it as origin for a CloudFront distribution."
+      }
+    ],
+    "answers": ["C"]
+  }
+]

@@ -53,20 +53,20 @@ uv sync --all-extras   # 安裝所有依賴（含 dev：ruff, mypy, pyright）
 複製範例並依需求修改：
 
 ```bash
-cp .env.example .env
+ .env
 ```
-
-需要設定的變數請參考 `.env.example`。
 
 ### 5. 啟動 PostgreSQL
 
 ```bash
+cd backend
 docker compose up -d
 ```
 
 這會啟動：
 - **PostgreSQL 17** — port `5432`
-- **Adminer**（資料庫管理 UI）— port `8080`
+- **Adminer**（資料庫管理 UI）— port `8080` 
+`http://localhost:8080/`
 
 ### 6. 初始化 Alembic（僅首次）
 
