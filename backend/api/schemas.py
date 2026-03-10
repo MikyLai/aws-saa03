@@ -55,3 +55,40 @@ class QuestionOut(BaseModel):
     choices: list[ChoiceOut]
     # return correct answer labels for now (later you can hide this)
     answer_labels: list[str] = []
+
+
+class AttemptCreate(BaseModel):
+    user_id: str = "local"
+    question_id: int
+    selected_choice_ids: list[int] = Field(default_factory=list)
+
+
+class AttemptResult(BaseModel):
+    question_id: int
+    user_id: str
+    selected_choice_ids: list[int]
+    is_correct: bool
+    correct_choice_ids: list[int]
+    correct_labels: list[str]
+    domain: str | None
+    explanation_en: str | None
+    explanation_zh: str | None
+
+
+class DomainScore(BaseModel):
+    domain: str
+    answered: int
+    correct: int
+    incorrect: int
+    percentage: float
+
+
+class AttemptSummary(BaseModel):
+    user_id: str
+    total_questions: int
+    total_answered: int
+    total_correct: int
+    total_incorrect: int
+    total_unanswered: int
+    overall_percentage: float
+    by_domain: list[DomainScore]

@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
-from api.routers import health, questions  # noqa: E402
+from api.routers import attempts, health, questions  # noqa: E402
 
 logging.basicConfig(level=logging.INFO)
 app = FastAPI(title="AWS SAA-03 API")
@@ -20,6 +20,7 @@ app.add_middleware(
 )
 
 app.include_router(health.router)
+app.include_router(attempts.router)
 app.include_router(questions.router)
 
 
