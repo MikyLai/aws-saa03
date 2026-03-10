@@ -272,5 +272,226 @@
       }
     ],
     "answers": ["C"]
+  },
+  {
+    "stem_en": "A company is developing a new application and wants to deploy it without managing the underlying infrastructure. The application requires a platform that handles capacity provisioning, load balancing, and auto-scaling automatically. Which AWS service should they use?",
+    "stem_zh": "一家公司正在開發新的應用程式，並希望在不管理底層基礎設施的情況下進行部署。該應用程式需要一個能自動處理容量配置、負載平衡和自動擴充的平台。他們應該使用哪種 AWS 服務？",
+    "explanation_en": "AWS Elastic Beanstalk is a Platform as a Service (PaaS) that allows developers to upload their code and automatically handles deployment, from capacity provisioning and load balancing to auto-scaling and health monitoring.",
+    "explanation_zh": "AWS Elastic Beanstalk 是一種平台即服務 (PaaS)，允許開發人員上傳其代碼，並自動處理從容量配置、負載平衡到自動擴充和健康監測的部署工作。",
+    "difficulty": 1,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "AWS CloudFormation", "text_zh": "AWS CloudFormation" },
+      { "label": "B", "text_en": "AWS Elastic Beanstalk", "text_zh": "AWS Elastic Beanstalk" },
+      { "label": "C", "text_en": "Amazon EC2 Auto Scaling", "text_zh": "Amazon EC2 Auto Scaling" },
+      { "label": "D", "text_en": "AWS OpsWorks", "text_zh": "AWS OpsWorks" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A solutions architect needs to design a solution to protect a web application from common web exploits and DDoS attacks. The application is delivered via Amazon CloudFront. Which combination of services should be used?",
+    "stem_zh": "解決方案架構師需要設計一個方案，保護網頁應用程式免受常見網頁漏洞和 DDoS 攻擊。該應用程式透過 Amazon CloudFront 交付。應使用哪種服務組合？",
+    "explanation_en": "AWS WAF protects against common web exploits (L7), and AWS Shield provides protection against DDoS attacks (L3/L4). Both integrate seamlessly with CloudFront.",
+    "explanation_zh": "AWS WAF 保護免受常見網頁漏洞 (L7) 攻擊，而 AWS Shield 提供針對 DDoS 攻擊 (L3/L4) 的保護。兩者皆可與 CloudFront 無縫整合。",
+    "difficulty": 2,
+    "domain": "Design Secure Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "AWS WAF and AWS Shield", "text_zh": "AWS WAF 與 AWS Shield" },
+      { "label": "B", "text_en": "Amazon GuardDuty and AWS WAF", "text_zh": "Amazon GuardDuty 與 AWS WAF" },
+      { "label": "C", "text_en": "AWS Shield and Amazon Inspector", "text_zh": "AWS Shield 與 Amazon Inspector" },
+      { "label": "D", "text_en": "Amazon Macie and AWS WAF", "text_zh": "Amazon Macie 與 AWS WAF" }
+    ],
+    "answers": ["A"]
+  },
+  {
+    "stem_en": "A company wants to store data in an Amazon S3 bucket. Compliance requirements state that the data must be encrypted before it is sent to AWS. Which encryption method should the company use?",
+    "stem_zh": "一家公司希望將數據儲存在 Amazon S3 儲存桶中。合規性要求規定數據在發送到 AWS 之前必須進行加密。公司應該使用哪種加密方法？",
+    "explanation_en": "Client-side encryption is the act of encrypting data before sending it to Amazon S3. This ensures that the data is encrypted during transit and while at rest, with the customer managing the encryption process.",
+    "explanation_zh": "用戶端加密 (Client-side encryption) 是在將數據發送到 Amazon S3 之前進行加密的行為。這確保了數據在傳輸和靜態存儲期間都是加密的，且由客戶管理加密過程。",
+    "difficulty": 2,
+    "domain": "Design Secure Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "SSE-S3", "text_zh": "SSE-S3" },
+      { "label": "B", "text_en": "SSE-KMS", "text_zh": "SSE-KMS" },
+      { "label": "C", "text_en": "SSE-C", "text_zh": "SSE-C" },
+      { "label": "D", "text_en": "Client-side encryption", "text_zh": "用戶端加密" }
+    ],
+    "answers": ["D"]
+  },
+  {
+    "stem_en": "A company needs to expose its internal microservices as APIs to external partners. The solution must support throttling, authentication, and caching. Which AWS service should be recommended?",
+    "stem_zh": "一家公司需要將其內部微服務作為 API 開放給外部合作夥伴。該方案必須支援流量限制 (Throttling)、身分驗證和快取。應推薦哪種 AWS 服務？",
+    "explanation_en": "Amazon API Gateway is a fully managed service that makes it easy for developers to create, publish, maintain, monitor, and secure APIs. It natively supports throttling, authentication (IAM/Cognito/Lambda Authorizers), and caching.",
+    "explanation_zh": "Amazon API Gateway 是一項完全託管的服務，讓開發人員能輕鬆建立、發佈、維護、監控和保護 API。它原生支援流量限制、身分驗證和快取功能。",
+    "difficulty": 1,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Application Load Balancer", "text_zh": "應用程式負載平衡器" },
+      { "label": "B", "text_en": "Amazon API Gateway", "text_zh": "Amazon API Gateway" },
+      { "label": "C", "text_en": "AWS AppSync", "text_zh": "AWS AppSync" },
+      { "label": "D", "text_en": "Amazon Route 53", "text_zh": "Amazon Route 53" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "Which AWS service provides a visual interface to create and automate workflows that coordinate multiple AWS services?",
+    "stem_zh": "哪種 AWS 服務提供視覺化界面來建立和自動化協調多個 AWS 服務的工作流？",
+    "explanation_en": "AWS Step Functions is a low-code visual workflow service used to orchestrate AWS services, automate business processes, and build serverless applications.",
+    "explanation_zh": "AWS Step Functions 是一個低程式碼的視覺化工作流服務，用於協調 AWS 服務、自動化業務流程並構建無伺服器應用程式。",
+    "difficulty": 1,
+    "domain": "Design Resilient Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "AWS Glue", "text_zh": "AWS Glue" },
+      { "label": "B", "text_en": "AWS Step Functions", "text_zh": "AWS Step Functions" },
+      { "label": "C", "text_en": "AWS Lambda", "text_zh": "AWS Lambda" },
+      { "label": "D", "text_en": "AWS SWF", "text_zh": "AWS SWF" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A company wants to migrate its on-premises database to AWS with minimal downtime. The database is 10 TB in size. Which service should they use?",
+    "stem_zh": "一家公司希望以最小停機時間將其本地資料庫遷移到 AWS。資料庫大小為 10 TB。他們應該使用哪種服務？",
+    "explanation_en": "AWS Database Migration Service (DMS) helps you migrate databases to AWS quickly and securely while the source database remains functional during the migration, minimizing downtime.",
+    "explanation_zh": "AWS Database Migration Service (DMS) 幫助您快速且安全地將資料庫遷移到 AWS，同時來源資料庫在遷移期間保持運行，從而將停機時間降至最低。",
+    "difficulty": 2,
+    "domain": "Design Resilient Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "AWS Snowball", "text_zh": "AWS Snowball" },
+      { "label": "B", "text_en": "AWS DMS", "text_zh": "AWS DMS" },
+      { "label": "C", "text_en": "AWS DataSync", "text_zh": "AWS DataSync" },
+      { "label": "D", "text_en": "Amazon S3 Transfer Acceleration", "text_zh": "Amazon S3 Transfer Acceleration" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A company is launching a new application that will have very high but short-lived spikes in traffic. Which EC2 feature ensures that the application can handle the load by automatically adding or removing instances?",
+    "stem_zh": "一家公司正在發佈一個新應用程式，該程式會出現非常高但短暫的流量高峰。哪種 EC2 功能可透過自動增加或刪除執行個體來確保應用程式能處理負載？",
+    "explanation_en": "Amazon EC2 Auto Scaling helps you maintain application availability and allows you to automatically add or remove EC2 instances according to conditions you define.",
+    "explanation_zh": "Amazon EC2 Auto Scaling 幫助您維持應用程式可用性，並允許您根據定義的條件自動增加或刪除 EC2 執行個體。",
+    "difficulty": 1,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Elastic Load Balancing", "text_zh": "Elastic Load Balancing" },
+      { "label": "B", "text_en": "EC2 Auto Scaling", "text_zh": "EC2 Auto Scaling" },
+      { "label": "C", "text_en": "Amazon CloudFront", "text_zh": "Amazon CloudFront" },
+      { "label": "D", "text_en": "Amazon Route 53", "text_zh": "Amazon Route 53" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A solutions architect needs to discover and protect sensitive data, such as personally identifiable information (PII), stored in Amazon S3 buckets. Which service should be used?",
+    "stem_zh": "解決方案架構師需要探索並保護存儲在 Amazon S3 儲存桶中的敏感數據，例如個人身分資訊 (PII)。應使用哪種服務？",
+    "explanation_en": "Amazon Macie is a fully managed data security and data privacy service that uses machine learning and pattern matching to discover and protect your sensitive data in Amazon S3.",
+    "explanation_zh": "Amazon Macie 是一項完全託管的數據安全和數據隱私服務，使用機器學習和模式匹配來探索並保護您在 Amazon S3 中的敏感數據。",
+    "difficulty": 2,
+    "domain": "Design Secure Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Amazon GuardDuty", "text_zh": "Amazon GuardDuty" },
+      { "label": "B", "text_en": "Amazon Macie", "text_zh": "Amazon Macie" },
+      { "label": "C", "text_en": "Amazon Inspector", "text_zh": "Amazon Inspector" },
+      { "label": "D", "text_en": "AWS KMS", "text_zh": "AWS KMS" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A company wants to manage its infrastructure using code (IaC) to ensure consistent deployments across multiple environments. Which AWS service should they use?",
+    "stem_zh": "一家公司希望使用程式碼 (IaC) 來管理其基礎設施，以確保在多個環境中實現一致的部署。他們應該使用哪種 AWS 服務？",
+    "explanation_en": "AWS CloudFormation allows you to model and set up your AWS resources so that you can spend less time managing those resources and more time focusing on your applications. You create a template that describes all the AWS resources that you want.",
+    "explanation_zh": "AWS CloudFormation 允許您建模並設定 AWS 資源。您可以建立一個範本來描述您想要的所有 AWS 資源，從而減少管理資源的時間。",
+    "difficulty": 1,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "AWS Elastic Beanstalk", "text_zh": "AWS Elastic Beanstalk" },
+      { "label": "B", "text_en": "AWS CloudFormation", "text_zh": "AWS CloudFormation" },
+      { "label": "C", "text_en": "AWS CodeDeploy", "text_zh": "AWS CodeDeploy" },
+      { "label": "D", "text_en": "AWS OpsWorks", "text_zh": "AWS OpsWorks" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "Which service helps you to visualize, understand, and manage your AWS costs and usage over time?",
+    "stem_zh": "哪種服務可幫助您隨時間視覺化、了解並管理您的 AWS 成本和用量？",
+    "explanation_en": "AWS Cost Explorer has an easy-to-use interface that lets you visualize, understand, and manage your AWS costs and usage over time.",
+    "explanation_zh": "AWS Cost Explorer 具有易於使用的界面，讓您能隨時間視覺化、了解並管理您的 AWS 成本和用量。",
+    "difficulty": 1,
+    "domain": "Design Cost-Optimized Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "AWS Budgets", "text_zh": "AWS Budgets" },
+      { "label": "B", "text_en": "AWS Cost Explorer", "text_zh": "AWS Cost Explorer" },
+      { "label": "C", "text_en": "AWS Trusted Advisor", "text_zh": "AWS Trusted Advisor" },
+      { "label": "D", "text_en": "AWS Pricing Calculator", "text_zh": "AWS Pricing Calculator" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A company is experiencing slow performance for its users in Australia when accessing a website hosted in the US-East-1 region. What can be done to improve the user experience?",
+    "stem_zh": "一家澳洲用戶在訪問託管在 US-East-1 區域的網站時遇到了效能緩慢的問題。可以採取什麼措施來改善用戶體驗？",
+    "explanation_en": "Amazon CloudFront is a global content delivery network (CDN) service that accelerates delivery of your websites, APIs, video content, or other web assets. It caches content closer to users at edge locations.",
+    "explanation_zh": "Amazon CloudFront 是一個全球內容分發網絡 (CDN) 服務，可加速網站、API 或其他內容的交付。它在更接近用戶的邊緣節點快取內容。",
+    "difficulty": 1,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Move the S3 bucket to Australia.", "text_zh": "將 S3 儲存桶移至澳洲。" },
+      { "label": "B", "text_en": "Use Amazon CloudFront to cache content at edge locations.", "text_zh": "使用 Amazon CloudFront 在邊緣節點快取內容。" },
+      { "label": "C", "text_en": "Increase the size of the EC2 instances.", "text_zh": "增加 EC2 執行個體的大小。" },
+      { "label": "D", "text_en": "Use Amazon Route 53 simple routing.", "text_zh": "使用 Amazon Route 53 簡單路由。" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "Which service allows you to run code in response to events without provisioning or managing servers?",
+    "stem_zh": "哪種服務允許您在不配置或管理伺服器的情況下，根據事件運行程式碼？",
+    "explanation_en": "AWS Lambda lets you run code without provisioning or managing servers. You pay only for the compute time you consume.",
+    "explanation_zh": "AWS Lambda 讓您在不配置或管理伺服器的情況下運行程式碼。您只需為消耗的運算時間付費。",
+    "difficulty": 1,
+    "domain": "Design High-Performing Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "Amazon EC2", "text_zh": "Amazon EC2" },
+      { "label": "B", "text_en": "AWS Lambda", "text_zh": "AWS Lambda" },
+      { "label": "C", "text_en": "AWS Elastic Beanstalk", "text_zh": "AWS Elastic Beanstalk" },
+      { "label": "D", "text_en": "Amazon ECS", "text_zh": "Amazon ECS" }
+    ],
+    "answers": ["B"]
+  },
+  {
+    "stem_en": "A company wants to receive an alert whenever its monthly AWS bill is projected to exceed a certain threshold. Which AWS service should they use?",
+    "stem_zh": "一家公司希望在其每月 AWS 帳單預計超過特定閾值時收到警報。他們應該使用哪種 AWS 服務？",
+    "explanation_en": "AWS Budgets gives you the ability to set custom budgets that alert you when your costs or usage exceed (or are forecasted to exceed) your budgeted amount.",
+    "explanation_zh": "AWS Budgets 讓您能設定自定義預算，當成本或用量超過（或預計超過）預算金額時，它會向您發出警報。",
+    "difficulty": 1,
+    "domain": "Design Cost-Optimized Architectures",
+    "question_type": "single",
+    "active": true,
+    "choices": [
+      { "label": "A", "text_en": "AWS Cost Explorer", "text_zh": "AWS Cost Explorer" },
+      { "label": "B", "text_en": "AWS Budgets", "text_zh": "AWS Budgets" },
+      { "label": "C", "text_en": "AWS Trusted Advisor", "text_zh": "AWS Trusted Advisor" },
+      { "label": "D", "text_en": "Amazon CloudWatch", "text_zh": "Amazon CloudWatch" }
+    ],
+    "answers": ["B"]
   }
 ]

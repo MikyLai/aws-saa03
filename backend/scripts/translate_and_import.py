@@ -13,7 +13,8 @@ if not OPENAI_API_KEY:
     raise SystemExit(
         "Error: OPENAI_API_KEY environment variable is not set.\n"
         "Please set it via:\n"
-        "  export OPENAI_API_KEY='your-api-key'  # or add OPENAI_API_KEY=your-api-key to your .env file"
+        "  export OPENAI_API_KEY='your-api-key'\n"
+        "  or add OPENAI_API_KEY=your-api-key to your .env file"
     )
 QUESTION_API_URL = os.getenv("QUESTION_API_URL", "http://localhost:8000/questions/")
 OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-5-mini")
@@ -62,10 +63,8 @@ def translate_question(question: dict) -> dict:
     text = response.output_text.strip()
     try:
         return json.loads(text)
-    except json.JSONDecodeError:
-        raise ValueError(
-            f"Failed to parse model response as JSON.\nRaw output:\n{text}"
-        )
+    except json.JSONDecodeError as err:
+        raise ValueError(f"Failed to parse model response as JSON.\nRaw output:\n{text}") from err
 
 
 def import_question(payload: dict) -> requests.Response:
@@ -155,6 +154,10 @@ def main() -> None:
 
         print(f"[{idx}] API status: {response.status_code}")
 
+        if response.status_code == 409:
+            print(f"[{idx}] Skipped (duplicate)")
+            continue
+
         if response.status_code >= 400:
             print(f"[{idx}] API error response:")
             print(response.text)
@@ -164,4 +167,31 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    # main()
+    INPUT_FILE = Path("data/question_bilingual_25-65.json")
+    if not INPUT_FILE.exists():
+        raise FileNotFoundError(f"Input file not found: {INPUT_FILE}")
+
+    with open(INPUT_FILE, encoding="utf-8") as f:
+        questions = json.load(f)
+
+    for idx, question in enumerate(questions, start=1):
+        print(f"[{idx}/{len(questions)}] Processing question: {question['stem_en'][:60]}...")
+        try:
+            response = import_question(question)
+        except Exception as e:
+            print(f"[{idx}] API request failed: {e}")
+            raise
+
+        print(f"[{idx}] API status: {response.status_code}")
+
+        if response.status_code == 409:
+            print(f"[{idx}] Skipped (duplicate)")
+            continue
+
+        if response.status_code >= 400:
+            print(f"[{idx}] API error response:")
+            print(response.text)
+            raise RuntimeError(f"Failed to import question #{idx}")
+
+    print(f"Done. Saved bilingual payloads to {OUTPUT_FILE}")
