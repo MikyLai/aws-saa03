@@ -12,9 +12,8 @@ from api.schemas import AttemptCreate, AttemptResult, AttemptSummary, DomainScor
 
 router = APIRouter(prefix="/attempts", tags=["attempts"])
 
-
 @router.post("/", response_model=AttemptResult, status_code=status.HTTP_201_CREATED)
-def create_attempt(payload: AttemptCreate, db: Session = Depends(get_db)):
+def create_attempt(payload: AttemptCreate, db: Session = Depends(get_db)) -> AttemptResult:
     # load question with choices + correct answers
     stmt = (
         select(Question)
@@ -71,7 +70,7 @@ def create_attempt(payload: AttemptCreate, db: Session = Depends(get_db)):
 def get_attempt_summary(
     user_id: str = Query("local"),
     db: Session = Depends(get_db),
-):
+) -> AttemptSummary:
     # total question count
     total_questions = db.execute(select(func.count()).select_from(Question)).scalar_one()
 
