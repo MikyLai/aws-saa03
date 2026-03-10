@@ -35,7 +35,10 @@ def create_attempt(payload: AttemptCreate, db: Session = Depends(get_db)) -> Att
     if invalid_ids:
         raise HTTPException(
             status_code=400,
-            detail=f"Selected choice id(s) do not belong to question {payload.question_id}: {invalid_ids}",
+            detail=(
+                f"Selected choice id(s) do not belong to"
+                f" question {payload.question_id}: {invalid_ids}"
+            ),
         )
 
     selected_ids = sorted(set(payload.selected_choice_ids))
