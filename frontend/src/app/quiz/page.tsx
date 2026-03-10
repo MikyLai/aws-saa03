@@ -121,7 +121,7 @@ export default function QuizPage() {
               const isCorrect = result?.correct_choice_ids.includes(choice.id) ?? false;
               const isSelected = result?.selected_choice_ids.includes(choice.id) ?? false;
 
-              let bg = "white";
+              let bg = "black";
               if (result && isCorrect) bg = "#eaf7ea";
               if (result && isSelected && !isCorrect) bg = "#fdecec";
 
