@@ -8,6 +8,8 @@ AWS Solutions Architect Associate (SAA-C03) 練習題應用程式。
 |------|------|
 | 語言 | Python 3.12 |
 | 後端框架 | FastAPI |
+| 前端框架 | Next.js (App Router) |
+| 前端語言 | TypeScript |
 | ORM | SQLAlchemy 2.0 |
 | 資料庫 | PostgreSQL 17 |
 | 資料庫遷移 | Alembic |
@@ -22,6 +24,7 @@ AWS Solutions Architect Associate (SAA-C03) 練習題應用程式。
 
 - [pyenv](https://github.com/pyenv/pyenv)
 - [uv](https://docs.astral.sh/uv/)
+- [Node.js](https://nodejs.org/) (v22+)
 - [Docker](https://docs.docker.com/get-docker/) & Docker Compose
 
 ## 快速開始
@@ -100,6 +103,29 @@ uv run uvicorn api.main:app --reload
 
 API 文件：http://localhost:8000/docs
 
+### 9. 設定 Frontend
+
+```bash
+cd frontend
+npm install
+```
+
+建立環境變數檔：
+
+```bash
+# frontend/.env.local
+NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
+```
+
+### 10. 啟動 Frontend 開發伺服器
+
+```bash
+cd frontend
+npm run dev
+```
+
+Frontend：http://localhost:3000
+
 ## 開發工具
 
 所有工具都透過 `uv run` 執行：
@@ -147,6 +173,12 @@ aws-saa03/
 │   ├── docker-compose.yml
 │   ├── pyproject.toml    # 依賴與工具設定
 │   └── .env              # 環境變數（不納入版控）
+├── frontend/
+│   ├── src/              # Next.js App Router 原始碼
+│   ├── public/           # 靜態資源
+│   ├── .env.local        # 前端環境變數（不納入版控）
+│   ├── package.json
+│   └── tsconfig.json
 └── scripts/
     └── issues.sh
 ```
