@@ -5,15 +5,12 @@ Revises: 5d5329ea22f1
 Create Date: 2026-03-10 13:24:30.898423
 
 """
+
 from collections.abc import Sequence
 
-import sqlalchemy as sa
-from alembic import op
-
-
 # revision identifiers, used by Alembic.
-revision: str = '050b17ce78b7'
-down_revision: str | Sequence[str] | None = '5d5329ea22f1'
+revision: str = "050b17ce78b7"
+down_revision: str | Sequence[str] | None = "5d5329ea22f1"
 branch_labels: str | Sequence[str] | None = None
 depends_on: str | Sequence[str] | None = None
 

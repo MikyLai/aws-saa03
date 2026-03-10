@@ -12,6 +12,7 @@ from api.schemas import AttemptCreate, AttemptResult, AttemptSummary, DomainScor
 
 router = APIRouter(prefix="/attempts", tags=["attempts"])
 
+
 @router.post("/", response_model=AttemptResult, status_code=status.HTTP_201_CREATED)
 def create_attempt(payload: AttemptCreate, db: Session = Depends(get_db)) -> AttemptResult:
     # load question with choices + correct answers
