@@ -13,7 +13,8 @@ if not OPENAI_API_KEY:
     raise SystemExit(
         "Error: OPENAI_API_KEY environment variable is not set.\n"
         "Please set it via:\n"
-        "  export OPENAI_API_KEY='your-api-key'  # or add OPENAI_API_KEY=your-api-key to your .env file"
+        "  export OPENAI_API_KEY='your-api-key'\n"
+        "  or add OPENAI_API_KEY=your-api-key to your .env file"
     )
 QUESTION_API_URL = os.getenv("QUESTION_API_URL", "http://localhost:8000/questions/")
 OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-5-mini")
@@ -62,10 +63,10 @@ def translate_question(question: dict) -> dict:
     text = response.output_text.strip()
     try:
         return json.loads(text)
-    except json.JSONDecodeError:
+    except json.JSONDecodeError as err:
         raise ValueError(
             f"Failed to parse model response as JSON.\nRaw output:\n{text}"
-        )
+        ) from err
 
 
 def import_question(payload: dict) -> requests.Response:
