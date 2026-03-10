@@ -64,9 +64,7 @@ def translate_question(question: dict) -> dict:
     try:
         return json.loads(text)
     except json.JSONDecodeError as err:
-        raise ValueError(
-            f"Failed to parse model response as JSON.\nRaw output:\n{text}"
-        ) from err
+        raise ValueError(f"Failed to parse model response as JSON.\nRaw output:\n{text}") from err
 
 
 def import_question(payload: dict) -> requests.Response:
@@ -197,6 +195,3 @@ if __name__ == "__main__":
             raise RuntimeError(f"Failed to import question #{idx}")
 
     print(f"Done. Saved bilingual payloads to {OUTPUT_FILE}")
-
-
-

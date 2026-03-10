@@ -55,9 +55,9 @@ def get_question(question_id: int, db: Session = Depends(get_db)) -> QuestionOut
 @router.post("/", response_model=QuestionOut, status_code=status.HTTP_201_CREATED)
 def create_question(payload: QuestionCreate, db: Session = Depends(get_db)) -> QuestionOut:
     # 0) check for duplicate
-    existing = db.execute(
-        select(Question).where(Question.stem_en == payload.stem_en)
-    ).scalars().first()
+    existing = (
+        db.execute(select(Question).where(Question.stem_en == payload.stem_en)).scalars().first()
+    )
     if existing:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
